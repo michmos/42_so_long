@@ -17,9 +17,8 @@ typedef struct s_map
 
 // utils.c
 void	err_exit(const char *str);
-char	*read_file(int fd);
 
-// parsing.c
-char **parsing(char *map_path);
+// map_init.c
+void	init_map(t_map *map, const char *map_path);
 
 #endif

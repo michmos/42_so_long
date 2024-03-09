@@ -1,6 +1,5 @@
 
 #include "so_long.h"
-#include <stdlib.h>
 
 int	main(int argc, char *argv[])
 {
@@ -10,11 +9,13 @@ int	main(int argc, char *argv[])
 	{
 		err_exit("unvalid arguments");
 	}
-	map.map = parsing(argv[1]);
-	if (error_check(&map) == true)
-	{
-		free(map.map);
-		exit(EXIT_FAILURE);
-	}
+	init_map(&map, argv[1]);
+	error_check(&map);
+	map.map += 1;
+	// if (error_check(&map) == true)
+	// {
+	// 	free(map.map);
+	// 	exit(EXIT_FAILURE);
+	// }
 	return (0);
 }
