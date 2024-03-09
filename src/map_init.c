@@ -34,16 +34,20 @@ static char **parsing(const char *map_path)
 	int 	fd;
 	char	*content;
 	char	**map;
+	int		strlen;
 
+	strlen = ft_strlen(map_path);
+	if (strlen < 4 || ft_strncmp(&map_path[strlen - 4], ".ber", 4) != 0)
+		err_exit("file must end with .ber extension");
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 	{
-		err_exit("error when opening file");
+		err_exit("opening file failed");
 	}
 	content = read_file(fd);
 	if (!content)
 	{
-		err_exit("error when reading file");
+		err_exit("reading file failed");
 	}
 	map = ft_split(content, '\n');
 	free(content);
