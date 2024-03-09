@@ -17,8 +17,12 @@ typedef struct s_map
 
 // utils.c
 void	err_exit(const char *str);
+void	print_err(const char *str);
 
 // map_init.c
 void	init_map(t_map *map, const char *map_path);
+
+// error_check.c
+int	error_check(t_map *map);
 
 #endif
