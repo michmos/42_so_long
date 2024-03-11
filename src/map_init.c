@@ -29,7 +29,7 @@ static char	*read_file(int fd)
 	return (content);
 }
 
-static char **parsing(const char *map_path)
+static char **get_map(const char *map_path)
 {
 	int 	fd;
 	char	*content;
@@ -74,7 +74,11 @@ static size_t	get_height(char **arr)
 
 void	init_map(t_map *map, const char *map_path)
 {
-	map->map = parsing(map_path);
+	map->map = get_map(map_path);
 	map->height = get_height(map->map);
 	map->width = ft_strlen(map->map[0]);
+	// TODO: continue here with initialization (-1 if not found), maybe get_map should retun single string and split afterwards (would also be beneicial for finding duplicates)
+	// further trimm new lines at beginning and end before splitting
+	map->exit_pos = 
+	map->player_pos = 
 }

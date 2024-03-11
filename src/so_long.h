@@ -9,11 +9,23 @@
 
 typedef struct s_map
 {
-	size_t	height;
-	size_t	width;
+	int		height;
+	int		width;
 	char	**map;
+	int		steps_min;
+	int		player_pos[2];
+	int		exit_pos[2];
 
 } t_map;
+
+// TODO: change name
+enum e_change_name
+{
+	WALL = '1',
+	PLAYER = 'P',
+	ITEM = 'C',
+	EXIT = 'E'
+};
 
 // utils.c
 void	err_exit(const char *str);
