@@ -5,7 +5,7 @@ LIBS		:= ft
 LIBS_TARGET	:= external_libs/42_libs/libft.a
 
 SRC_DIR		:= src
-SRCS		:= main.c parsing.c utils.c
+SRCS		:= main.c map_init.c error_check.c utils.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 OBJ_DIR		:= .build
