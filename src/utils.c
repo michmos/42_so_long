@@ -63,7 +63,7 @@ void	free_2d_array(char **arr)
 	free(arr);
 }
 
-char	**copy_map(char **map, size_t	size)
+char	**dup_map(char **map, size_t	size)
 {
 	int 	y;
 	char	**dup_map;

@@ -69,7 +69,7 @@ void	free_2d_array(char **arr);
 * @param map The map to copy
 * @param size The size of the map (excluding the terminating NULL pointer)
 */
-char	**copy_map(char **map, size_t	size);
+char	**dup_map(char **map, size_t	size);
 
 // map_init.c ----------------------------------------------------------------//
 void	init_map(t_map *map, const char *map_path);
