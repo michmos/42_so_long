@@ -64,28 +64,39 @@ static int	is_closed(t_map *map)
 	return (true);
 }
 
-static void	cross_reachable_space(int x, int y, t_map *map)
+static void	cross_reachable_space(char **map, int y, int x)
 {
-	if (x == 0 || x == map->width || y == 0 || y == map->height)
+	if (x == 0 || map[y][x] == '\0' || y == 0 || map[y] == NULL)
+	{
 		return ;
-	map->map[y][x] = 'x';
-	if (map->map[y][x - 1] != WALL && map->map[y][x - 1] != 'x')
-		cross_reachable_space(x - 1, y, map);
-	if (map->map[y][x + 1] != WALL && map->map[y][x + 1] != 'x')
-		cross_reachable_space(x + 1, y, map);
-	if (map->map[y - 1][x] != WALL && map->map[y - 1][x] != 'x')
-		cross_reachable_space(x, y - 1, map);
-	if (map->map[y + 1][x] != WALL && map->map[y + 1][x] != 'x')
-		cross_reachable_space(x, y + 1, map);
+	}
+	map[y][x] = 'x';
+	if (map[y][x - 1] != WALL && map[y][x - 1] != 'x')
+		cross_reachable_space(map, y, x - 1);
+	if (map[y][x + 1] != WALL && map[y][x + 1] != 'x')
+		cross_reachable_space(map, y, x + 1);
+	if (map[y - 1][x] != WALL && map[y - 1][x] != 'x')
+		cross_reachable_space(map, y - 1, x);
+	if (map[y + 1][x] != WALL && map[y + 1][x] != 'x')
+		cross_reachable_space(map, y + 1, x);
 	return ;
 }
 
 static int	has_valid_path(t_map *map)
 {
-	// cross_reachable_space(map->player_pos[1], map->player_pos[0], map);
-	cross_reachable_space(1, 3, map);
-	// if (map->map[map->exit_pos[1]][map->exit_pos[0]] == 'x')
-	// 	return (true);
+	char **map_dup;
+
+	map_dup = dup_map(map->map, map->height);
+	cross_reachable_space(map_dup, map->player_pos[0], map->player_pos[1]);
+	if (map_dup[map->exit_pos[0]][map->exit_pos[1]] == 'x')
+	{
+		free_2d_array(map_dup);
+		return (true);
+	}
+	free_2d_array(map_dup);
+	return (false);
+}
+
 static int	has_duplicates(t_map *map)
 {
 	int		exit_pos[2];
