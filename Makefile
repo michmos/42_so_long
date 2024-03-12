@@ -1,8 +1,14 @@
 
 NAME		:= so_long
 
-LIBS		:= ft
-LIBS_TARGET	:= external_libs/42_libs/libft.a
+LIBS		:= ft mlx42
+LIBS_TARGET	:= \
+			   external_libs/42_libs/libft.a \
+			   external_libs/MLX42/build/libmlx42.a
+
+LIBS_DIR	:= external_libs
+LIBFT		:= 42_libs/libft.a
+MLX			:= MLX42/build/libmlx42.a
 
 SRC_DIR		:= src
 SRCS		:= main.c map_init.c error_check.c utils.c
@@ -35,8 +41,8 @@ clean:
 	$(RM) $(OBJ_DIR)
 	@printf "$(REMOVED)" $(OBJ_DIR) $(CUR_DIR)
 
-fclean:
-	for i in $(dir $(LIBS_TARGET)); do $(MAKE) -C $$i fclean; done
+fclean: clean
+	$(MAKE) -C external_libs/42_libs fclean
 	$(RM) $(OBJ_DIR)
 	$(RM) $(NAME)
 	@printf "$(REMOVED)" $(OBJ_DIR) $(CUR_DIR)
