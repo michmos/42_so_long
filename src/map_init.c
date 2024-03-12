@@ -81,9 +81,4 @@ void	init_map(t_map *map, const char *map_path)
 	map->width = ft_strlen(map->map[0]);
 	find_item_pos(map->map, 'E', &map->exit_pos[0], &map->exit_pos[1]);
 	find_item_pos(map->map, 'P', &map->player_pos[0], &map->player_pos[1]);
-	if (map->exit_pos[0] == -1 || map->player_pos[0] == -1)
-	{
-		free_2d_array(map->map);
-		exit(EXIT_FAILURE);
-	}
 }
