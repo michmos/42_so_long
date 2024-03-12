@@ -86,6 +86,26 @@ static int	has_valid_path(t_map *map)
 	cross_reachable_space(1, 3, map);
 	// if (map->map[map->exit_pos[1]][map->exit_pos[0]] == 'x')
 	// 	return (true);
+static int	has_duplicates(t_map *map)
+{
+	int		exit_pos[2];
+	int		player_pos[2];
+	int		temp[2];
+
+	exit_pos[0] = map->exit_pos[0];
+	exit_pos[1] = map->exit_pos[1];
+	player_pos[0] = map->player_pos[0];
+	player_pos[1] = map->player_pos[1];
+	map->map[player_pos[0]][player_pos[1]] = 'x';
+	find_item_pos(map->map, PLAYER, &temp[0], &temp[1]);
+	if (temp[0] != -1)
+		return (true);
+	map->map[exit_pos[0]][exit_pos[1]] = 'x';
+	find_item_pos(map->map, EXIT, &temp[0], &temp[1]);
+	if (temp[0] != -1)
+		return (true);
+	map->map[exit_pos[0]][exit_pos[1]] = EXIT;
+	map->map[player_pos[0]][player_pos[1]] = PLAYER;
 	return (false);
 }
 
@@ -93,8 +113,8 @@ int	error_check(t_map *map)
 {
 	if (!has_e_c_p(map))
 		print_err("Map must contain the characters E, C and P");
-	// else if (has_duplicates(map))
-	// 	print_err("Map: There can only be one start and one exit");
+	else if (has_duplicates(map))
+		print_err("Map: There can only be one start and one exit");
 	else if (!is_rectangular(map))
 		print_err("Map must be rectangular");
 	else if (!is_closed(map))
