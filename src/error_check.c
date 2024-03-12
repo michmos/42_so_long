@@ -2,40 +2,21 @@
 #include "so_long.h"
 #include <stdbool.h>
 
-typedef enum e_chars
-{
-	C = 1,
-	E = 1 << 1,
-	P = 1 << 2
-} t_chars;
-
 static int	has_e_c_p(t_map *map)
 {
-	int	i;
-	int	j;
-	int	items;
+	int	y_pos;
+	int	x_pos;
 
-	items = 0;
-	j = 0;
-	while(j < map->height)
+	if (map->player_pos[0] == -1 || map->exit_pos[0] == -1)
 	{
-		i = 0;
-		while(map->map[j][i])
-		{
-			if (map->map[j][i] == ITEM)
-				items |= C;
-			if (map->map[j][i] == EXIT)
-				items |= E;
-			if (map->map[j][i] == PLAYER)
-				items |= P;
-			i++;
-		}
-		j++;
-	}
-	if ((items & E) && (items & C) && (items & P))
-		return (true);
-	else
 		return (false);
+	}
+	find_item_pos(map->map, ITEM, &y_pos, &x_pos);
+	if (y_pos == -1)
+	{
+		return (false);
+	}
+	return (true);
 }
 
 static int	is_rectangular(t_map *map)
