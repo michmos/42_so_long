@@ -1,5 +1,7 @@
 
 #include "so_long.h"
+#include <stddef.h>
+#include <stdlib.h>
 
 static char	*read_file(int fd)
 {
@@ -51,10 +53,6 @@ static char **get_map(const char *map_path)
 	}
 	map = ft_split(content, '\n');
 	free(content);
-	if (!map)
-	{
-		exit(EXIT_FAILURE);
-	}
 	return (map);
 }
 
@@ -75,10 +73,17 @@ static size_t	get_height(char **arr)
 void	init_map(t_map *map, const char *map_path)
 {
 	map->map = get_map(map_path);
+	if (!map->map)
+	{
+		exit(EXIT_FAILURE);
+	}
 	map->height = get_height(map->map);
 	map->width = ft_strlen(map->map[0]);
-	// TODO: continue here with initialization (-1 if not found), maybe get_map should retun single string and split afterwards (would also be beneicial for finding duplicates)
-	// further trimm new lines at beginning and end before splitting
-	map->exit_pos = 
-	map->player_pos = 
+	find_item_pos(map->map, 'E', &map->exit_pos[0], &map->exit_pos[1]);
+	find_item_pos(map->map, 'P', &map->player_pos[0], &map->player_pos[1]);
+	if (map->exit_pos[0] == -1 || map->player_pos[0] == -1)
+	{
+		free_2d_array(map->map);
+		exit(EXIT_FAILURE);
+	}
 }
