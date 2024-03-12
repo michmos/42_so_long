@@ -54,6 +54,14 @@ void	print_err(const char *err_message);
 */
 void	find_item_pos(char **map, char item, int *y_pos, int *x_pos);
 
+/*
+* This functions frees an array of strings. Therefore the array needs to be
+* terminated with a pointer to NULL
+*
+* @param arr The array to be freed
+*/
+void	free_2d_array(char **arr);
+
 // map_init.c ----------------------------------------------------------------//
 void	init_map(t_map *map, const char *map_path);
 
