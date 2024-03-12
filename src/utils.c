@@ -57,3 +57,28 @@ void	free_2d_array(char **arr)
 	}
 	free(arr);
 }
+
+char	**copy_map(char **map, size_t	size)
+{
+	int 	y;
+	char	**dup_map;
+
+	y = 0;
+	if (!map || !*map)
+		return (NULL);
+	dup_map = malloc((size + 1) * sizeof(char *));
+	if (!dup_map)
+		return (NULL);
+	while (map[y])
+	{
+		dup_map[y] = ft_strdup(map[y]);
+		if (!dup_map[y])
+		{
+			free_2d_array(dup_map);
+			return (NULL);
+		}
+		y++;
+	}
+	dup_map[size] = NULL;
+	return (dup_map);
+}

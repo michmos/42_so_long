@@ -62,6 +62,15 @@ void	find_item_pos(char **map, char item, int *y_pos, int *x_pos);
 */
 void	free_2d_array(char **arr);
 
+/*
+* This function creates a copy of a 2d map and returns it on success. NULL is
+* returned on failure
+*
+* @param map The map to copy
+* @param size The size of the map (excluding the terminating NULL pointer)
+*/
+char	**copy_map(char **map, size_t	size);
+
 // map_init.c ----------------------------------------------------------------//
 void	init_map(t_map *map, const char *map_path);
 
