@@ -2,17 +2,17 @@
 #include "so_long.h"
 #define	BUFFER_SIZE 128
 
-void	err_exit(const char *str)
+void	err_exit(const char *err_message)
 {
-	if (str)
-		print_err(str);
+	if (err_message)
+		print_err(err_message);
 	exit(EXIT_FAILURE);
 }
 
-void	print_err(const char *str)
+void	print_err(const char *err_message)
 {
 	write(STDERR_FILENO, "Error\n", 6);
-	write(STDERR_FILENO, str, ft_strlen(str));
+	write(STDERR_FILENO, err_message, ft_strlen(err_message));
 	write(STDERR_FILENO, "\n", 1);
 }
 

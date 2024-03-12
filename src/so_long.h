@@ -27,14 +27,37 @@ enum e_change_name
 	EXIT = 'E'
 };
 
-// utils.c
-void	err_exit(const char *str);
-void	print_err(const char *str);
+// utils.c -------------------------------------------------------------------//
 
-// map_init.c
+/*
+* This function calls print_err with err_message and then exits with -1
+*
+* @param err_message The error message to print
+*/
+void	err_exit(const char *str);
+
+/* This function prints a message to stderr in the format "Error\n<message>\n"
+*
+* @param err_message The error message to print
+*/
+void	print_err(const char *err_message);
+
+/*
+* This functions searches for a character inside a 2D map
+* 
+* @param map The map to search for the item
+* @param item The item to look for
+* @param y_pos A pointer to an integer that will be initialized with the
+* y-location in case the item is found - otherwise -1
+* @param x_pos A pointer to an integer that will be initialized with the
+* x-location in case the item is found - otherwise -1
+*/
+void	find_item_pos(char **map, char item, int *y_pos, int *x_pos);
+
+// map_init.c ----------------------------------------------------------------//
 void	init_map(t_map *map, const char *map_path);
 
-// error_check.c
+// error_check.c -------------------------------------------------------------//
 int	error_check(t_map *map);
 
 #endif
