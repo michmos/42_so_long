@@ -48,8 +48,13 @@ void	free_2d_array(char **arr)
 	int y;
 
 	y = 0;
-	if (!arr || !*arr)
+	if (!arr)
 		return ;
+	if (!arr[0])
+	{
+		free(arr);
+		return ;
+	}
 	while (arr[y])
 	{
 		free(arr[y]);
