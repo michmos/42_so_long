@@ -8,6 +8,14 @@
 # include "../external_libs/MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
 
+# define TEXTURE_WIDTH 64
+# define PATH_TEXTURE_SPACE "../textures/water"
+# define PATH_TEXTURE_WALL "../textures/rock"
+# define PATH_TEXTURE_PLAYER "../textures/boat"
+# define PATH_TEXTURE_EXIT "../textures/exit"
+# define PATH_TEXTURE_ITEMS "../textures/trash"
+# define PATH_TEXTURE_ENEMIES "../textures/fish"
+
 typedef struct s_map
 {
 	int		height;
@@ -19,7 +27,16 @@ typedef struct s_map
 
 } t_map;
 
-// TODO: change name
+typedef struct s_imgs
+{
+	mlx_image_t *space;
+	mlx_image_t *wall;
+	mlx_image_t *player;
+	mlx_image_t *exit;
+	mlx_image_t *items;
+	mlx_image_t *enemies;
+} t_imgs;
+
 enum e_change_name
 {
 	WALL = '1',
@@ -77,5 +94,8 @@ void	init_map(t_map *map, const char *map_path);
 
 // error_check.c -------------------------------------------------------------//
 int	error_check(t_map *map);
+
+// load_images.c -------------------------------------------------------------//
+int load_images(mlx_t *mlx, t_imgs *imgs);
 
 #endif
