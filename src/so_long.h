@@ -12,12 +12,12 @@
 # include <fcntl.h>
 
 # define TEXTURE_WIDTH 64
-# define PATH_TEXTURE_SPACE "../textures/water"
-# define PATH_TEXTURE_WALL "../textures/rock"
-# define PATH_TEXTURE_PLAYER "../textures/boat"
-# define PATH_TEXTURE_EXIT "../textures/exit"
-# define PATH_TEXTURE_ITEMS "../textures/trash"
-# define PATH_TEXTURE_ENEMIES "../textures/fish"
+# define SPACE_TEXTURE "textures/ocean_cleanup/textures/water.png"
+# define WALL_TEXTURE "textures/rock.png"
+# define PLAYER_TEXTURE "textures/boat.png"
+# define EXIT_TEXTURE "textures/exit.png"
+# define ITEM_TEXTURE "textures/trash.png"
+# define ENEMY_TEXTURE "textures/fish.png"
 
 typedef struct s_map
 {
@@ -40,12 +40,13 @@ typedef struct s_imgs
 	mlx_image_t *enemies;
 } t_imgs;
 
-enum e_change_name
+enum e_entity
 {
+	SPACE = '0',
 	WALL = '1',
 	PLAYER = 'P',
-	ITEM = 'C',
-	EXIT = 'E'
+	EXIT = 'E',
+	ITEM = 'C'
 };
 
 // map_init.c ----------------------------------------------------------------//
@@ -53,6 +54,9 @@ void	init_map(t_map *map, const char *map_path);
 
 // error_check.c -------------------------------------------------------------//
 int	error_check(t_map *map);
+
+// error_check2.c ------------------------------------------------------------//
+int	has_valid_path(t_map *map);
 
 // load_images.c -------------------------------------------------------------//
 int load_images(mlx_t *mlx, t_imgs *imgs);

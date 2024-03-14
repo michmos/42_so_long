@@ -28,5 +28,7 @@ int	main(int argc, char *argv[])
 		free_2d_array(map.map);
 		exit(EXIT_FAILURE);
 	}
+	mlx_image_to_window(mlx, imgs.space, 100, 100);
+	mlx_loop(mlx);
 	return (0);
 }
