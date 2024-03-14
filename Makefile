@@ -10,23 +10,29 @@ LIBS_DIR	:= external_libs
 LIBFT		:= 42_libs/libft.a
 MLX			:= MLX42/build/libmlx42.a
 
+HEADER_FILE	:= so_long.h
+
 SRC_DIR		:= src
-SRCS		:= main.c map_init.c error_check.c utils.c
+SRCS		:= main.c map_init.c error_check.c error_check2.c utils.c load_images.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 OBJ_DIR		:= .build
 OBJS		:= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC			:= cc
-CFLAGS		:= -Wall -Werror -Wextra -g
+CFLAGS		:= -g -MMD
+MLXFLAGS	:= -ldl -lglfw -pthread -lm
 LINKERFLAGS	:= $(addprefix -L, $(dir $(LIBS_TARGET))) $(addprefix -l, $(LIBS))
 RM			:= rm -rf
 
+
 all: $(NAME)
+
+-include $(OBJS:.o=.d)
 
 $(NAME): $(OBJS) $(LIBS_TARGET)
 	@printf "\n"
-	$(CC) $(OBJS) $(LINKERFLAGS) -o $(NAME)
+	$(CC) $(OBJS) $(LINKERFLAGS) $(MLXFLAGS) -o $(NAME)
 	@printf "$(CREATED)" $@ $(CUR_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
