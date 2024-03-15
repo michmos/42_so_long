@@ -26,15 +26,15 @@ int	has_valid_path(t_map *map)
 	map_dup = dup_map(map->map, map->height);
 	if (!map_dup)
 	{
-		free_2d_array(map->map); // TODO: check whether this is everything that needs to be freed?
+		free_2d_array((void **)map->map); // TODO: check whether this is everything that needs to be freed?
 		exit(EXIT_FAILURE);
 	}
 	cross_reachable_space(map_dup, map->player_pos[0], map->player_pos[1]);
 	if (map_dup[map->exit_pos[0]][map->exit_pos[1]] == 'x' && all_items_collected(map_dup))
 	{
-		free_2d_array(map_dup);
+		free_2d_array((void **) map_dup);
 		return (true);
 	}
-	free_2d_array(map_dup);
+	free_2d_array((void **) map_dup);
 	return (false);
 }

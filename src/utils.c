@@ -43,7 +43,7 @@ void	find_item_pos(char **map, char item, int *y_pos, int *x_pos)
 	*y_pos = -1;
 }
 
-void	free_2d_array(char **arr)
+void	free_2d_array(void **arr)
 {
 	int y;
 
@@ -79,7 +79,7 @@ char	**dup_map(char **map, size_t	size)
 		dup_map[y] = ft_strdup(map[y]);
 		if (!dup_map[y])
 		{
-			free_2d_array(dup_map);
+			free_2d_array((void **) dup_map);
 			return (NULL);
 		}
 		y++;
