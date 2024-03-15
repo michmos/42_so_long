@@ -13,7 +13,14 @@ MLX			:= MLX42/build/libmlx42.a
 HEADER_FILE	:= so_long.h
 
 SRC_DIR		:= src
-SRCS		:= main.c map_init.c error_check.c error_check2.c utils.c load_images.c
+SRCS		:= \
+			   main.c \
+			   map_init.c \
+			   error_check.c error_check2.c \
+			   utils.c \
+			   load_images.c \
+			   sprite.c \
+			   init_entities.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 OBJ_DIR		:= .build

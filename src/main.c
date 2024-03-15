@@ -1,11 +1,13 @@
 
 #include "so_long.h"
 
+
 int	main(int argc, char *argv[])
 {
-	t_map	map;
-	mlx_t   *mlx;
-	t_imgs imgs;
+	t_map		map;
+	mlx_t   	*mlx;
+	t_imgs 		imgs;
+	t_entities	entities;
 
 	if (argc != 2)
 	{
@@ -28,7 +30,13 @@ int	main(int argc, char *argv[])
 		free_2d_array((void **) map.map);
 		exit(EXIT_FAILURE);
 	}
-	mlx_image_to_window(mlx, imgs.space, 100, 100);
+	if (init_entities(mlx, &entities, &imgs) == -1)
+	{
+		// TODO: free entities
+		free_2d_array((void **) map.map);
+		exit(EXIT_FAILURE);
+	}
+	mlx_image_t ***frames = split_sprite_sheet(mlx, imgs.player);
 	mlx_loop(mlx);
 	return (0);
 }
