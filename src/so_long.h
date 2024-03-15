@@ -8,13 +8,13 @@
 # include "../external_libs/MLX42/include/MLX42/MLX42.h"
 
 # include "utils.h"
-
 # include <fcntl.h>
 
-# define TEXTURE_WIDTH 64
-# define SPACE_TEXTURE "textures/ocean_cleanup/textures/water.png"
+# define TEXTURE_WIDTH 256
+
+# define SPACE_TEXTURE "textures/ocean_cleanup/textures/water_sprite_sheet.png"
 # define WALL_TEXTURE "textures/rock.png"
-# define PLAYER_TEXTURE "textures/boat.png"
+# define PLAYER_TEXTURE "textures/ocean_cleanup/textures/boat_with_waves256_2.png"
 # define EXIT_TEXTURE "textures/exit.png"
 # define ITEM_TEXTURE "textures/trash.png"
 # define ENEMY_TEXTURE "textures/fish.png"
@@ -29,6 +29,7 @@ typedef struct s_map
 	int		exit_pos[2];
 
 } t_map;
+
 
 typedef struct s_imgs
 {
@@ -88,6 +89,8 @@ int	has_valid_path(t_map *map);
 // load_images.c -------------------------------------------------------------//
 int load_images(mlx_t *mlx, t_imgs *imgs);
 
+// sprites.c -----------------------------------------------------------------//
+mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet);
 
 // init_entities.c -----------------------------------------------------------//
 int	init_entities(mlx_t *mlx, t_entities *entities, t_imgs* imgs);
