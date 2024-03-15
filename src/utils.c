@@ -109,3 +109,21 @@ int	all_items_collected(char **map)
 	}
 	return (true);
 }
+
+int get_rgba(int r, int g, int b, int a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
+
+int	get_pixel(mlx_image_t *img, int y, int x)
+{
+	int		pixel_index;
+	uint8_t	*pixel_data;
+	int		rgba;
+
+	pixel_index = img->width * y + x;
+	pixel_data = &img->pixels[pixel_index * 4];
+	rgba = get_rgba(pixel_data[0], pixel_data[1], pixel_data[2], pixel_data[3]);
+	return (rgba);
+}
+

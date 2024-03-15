@@ -3,6 +3,7 @@
 # define UTILS_H
 
 # include "../external_libs/42_libs/src/libft/libft.h"
+# include "../external_libs/MLX42/include/MLX42/MLX42.h"
 
 // utils.c -------------------------------------------------------------------//
 
@@ -56,5 +57,24 @@ char	**dup_map(char **map, size_t	size);
 */
 int	all_items_collected(char **map);
 
+/*
+* This function returns the rgba value given values for the 4 color channels
+*
+* @param r The value for the red channel
+* @param g The value for the green channel
+* @param b The value for the blue channel
+* @param a The value for the alpha channel
+*/
+int get_rgba(int r, int g, int b, int a);
+
+/*
+* This function returns the pixel rgba value given an image and the pixel
+* location
+*
+* @param img The image to retrieve the information from
+* @param y The y location of the pixel
+* @param x The x location of the pixel
+*/
+int	get_pixel(mlx_image_t *img, int y, int x);
 
 #endif
