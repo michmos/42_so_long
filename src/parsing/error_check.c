@@ -1,6 +1,5 @@
 
-#include "so_long.h"
-#include <stdbool.h>
+#include "../so_long.h"
 
 static int	has_e_c_p(t_map *map)
 {

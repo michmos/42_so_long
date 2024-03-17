@@ -1,5 +1,27 @@
 
-#include "so_long.h"
+#include "../so_long.h"
+
+int	all_items_collected(char **map)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	if (!map || !*map)
+		return (-1);
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == ITEM)
+				return (false);
+			x++;
+		}
+		y++;
+	}
+	return (true);
+}
 
 static void	cross_reachable_space(char **map, int y, int x)
 {

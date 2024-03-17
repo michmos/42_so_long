@@ -1,7 +1,6 @@
 
 #include "utils.h"
 
-
 void	delete_frames(mlx_t *mlx, mlx_image_t **frames)
 {
 	int	i;

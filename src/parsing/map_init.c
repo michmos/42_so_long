@@ -1,7 +1,5 @@
 
-#include "so_long.h"
-#include <stddef.h>
-#include <stdlib.h>
+#include "../so_long.h"
 
 static char	*read_file(int fd)
 {

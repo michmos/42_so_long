@@ -15,11 +15,9 @@ HEADER_FILE	:= so_long.h
 SRC_DIR		:= src
 SRCS		:= \
 			   main.c \
-			   map_init.c \
-			   error_check.c error_check2.c \
-			   utils.c \
-			   load_images.c \
-			   sprite.c \
+			   parsing/map_init.c parsing/error_check.c parsing/error_check2.c \
+			   utils/utils.c utils/utils_free.c \
+			   graphics/load_images.c graphics/sprite.c \
 			   init_entities.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 

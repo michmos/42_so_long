@@ -1,5 +1,5 @@
 
-#include "so_long.h"
+#include "../so_long.h"
 
 mlx_image_t	*dup_frame(mlx_t *mlx, mlx_image_t *src, int start_x, int start_y)
 {

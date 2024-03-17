@@ -2,8 +2,8 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-# include "../external_libs/42_libs/src/libft/libft.h"
-# include "../external_libs/MLX42/include/MLX42/MLX42.h"
+# include "../../external_libs/42_libs/src/libft/libft.h"
+# include "../../external_libs/MLX42/include/MLX42/MLX42.h"
 
 // utils.c -------------------------------------------------------------------//
 
@@ -48,14 +48,6 @@ void	free_2d_array(void **arr);
 * @param size The size of the map (excluding the terminating NULL pointer)
 */
 char	**dup_map(char **map, size_t	size);
-
-/*
-* This function checks whether all items have been collected. Returns true or
-* false
-*
-* @param map The map to be checked for items
-*/
-int	all_items_collected(char **map);
 
 /*
 * This function returns the rgba value given values for the 4 color channels
