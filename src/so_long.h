@@ -19,6 +19,15 @@
 # define ITEM_TEXTURE "textures/trash.png"
 # define ENEMY_TEXTURE "textures/fish.png"
 
+enum e_entity
+{
+	SPACE = '0',
+	WALL = '1',
+	PLAYER = 'P',
+	EXIT = 'E',
+	ITEM = 'C'
+};
+
 typedef struct s_map
 {
 	int		height;
@@ -30,7 +39,6 @@ typedef struct s_map
 
 } t_map;
 
-
 typedef struct s_img_list
 {
 	mlx_image_t *space;
@@ -41,22 +49,6 @@ typedef struct s_img_list
 	mlx_image_t *enemies;
 } t_img_list;
 
-enum e_entity
-{
-	SPACE = '0',
-	WALL = '1',
-	PLAYER = 'P',
-	EXIT = 'E',
-	ITEM = 'C'
-};
-
-/**
- * carries visual inforamtion for each entity
- * @param frames Stores arrays of frames used for animations
- * - multiple arrays indicate variations of the same object
- * - multiple frames per array are used for animations
- * @param current_frame Index to keep track of current frame
- */
 typedef struct s_entity
 {
 	mlx_image_t	***sprites;
@@ -95,5 +87,8 @@ mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet);
 
 // init_entities.c -----------------------------------------------------------//
 int	init_entities(mlx_t *mlx, t_entity_list *entities, t_img_list* imgs);
+
+// free.c --------------------------------------------------------------------//
+void	free_entities(mlx_t *mlx, t_entity_list *entities);
 
 #endif

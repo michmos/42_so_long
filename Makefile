@@ -14,11 +14,10 @@ HEADER_FILE	:= so_long.h
 
 SRC_DIR		:= src
 SRCS		:= \
-			   main.c \
+			   main.c init_entities.c free.c \
 			   parsing/map_init.c parsing/error_check.c parsing/error_check2.c \
 			   utils/utils.c utils/utils_free.c \
-			   graphics/load_images.c graphics/sprite.c \
-			   init_entities.c
+			   graphics/load_images.c graphics/sprite.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 OBJ_DIR		:= .build
