@@ -4,10 +4,10 @@
 
 int	main(int argc, char *argv[])
 {
-	t_map		map;
-	mlx_t   	*mlx;
-	t_imgs 		imgs;
-	t_entities	entities;
+	t_map			map;
+	mlx_t   		*mlx;
+	t_img_list		imgs;
+	t_entity_list	entities;
 
 	if (argc != 2)
 	{

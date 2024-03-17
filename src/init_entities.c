@@ -1,7 +1,7 @@
 
 #include "so_long.h"
 
-static int init_entity(mlx_t *mlx, t_object *entity, mlx_image_t *img)
+static int init_entity(mlx_t *mlx, t_entity *entity, mlx_image_t *img)
 {
 	entity->frames = split_sprite_sheet(mlx, img);
 	if (!entity->frames)
@@ -11,7 +11,7 @@ static int init_entity(mlx_t *mlx, t_object *entity, mlx_image_t *img)
 	return (0);
 }
 
-int	init_entities(mlx_t *mlx, t_entities *entities, t_imgs* imgs)
+int	init_entities(mlx_t *mlx, t_entity_list *entities, t_img_list* imgs)
 {
 	if (init_entity(mlx, &entities->space, imgs->space) == -1)
 		return (-1);

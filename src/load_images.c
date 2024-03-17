@@ -1,7 +1,7 @@
 
 #include "so_long.h"
 
-typedef struct s_textures
+typedef struct s_texture_list
 {
 	mlx_texture_t *space;
 	mlx_texture_t *wall;
@@ -9,10 +9,10 @@ typedef struct s_textures
 	mlx_texture_t *exit;
 	mlx_texture_t *items;
 	mlx_texture_t *enemies;
-} t_textures;
+} t_texture_list;
 
 
-static int	load_textures(t_textures *textures)
+static int	load_textures(t_texture_list *textures)
 {
 	textures->space = mlx_load_png(SPACE_TEXTURE);
 	if (!textures->space)
@@ -35,7 +35,7 @@ static int	load_textures(t_textures *textures)
 	return (0);
 }
 
-static int	textures_to_img(mlx_t *mlx, t_textures *textures, t_imgs *imgs)
+static int	textures_to_img(mlx_t *mlx, t_texture_list *textures, t_img_list *imgs)
 {
 	imgs->space = mlx_texture_to_image(mlx, textures->space);
 	if (!imgs->space)
@@ -58,9 +58,9 @@ static int	textures_to_img(mlx_t *mlx, t_textures *textures, t_imgs *imgs)
 	return (0);
 }
 
-int load_images(mlx_t *mlx, t_imgs *imgs)
+int load_images(mlx_t *mlx, t_img_list *imgs)
 {
-	t_textures textures;
+	t_texture_list textures;
 	
 	if (load_textures(&textures) == -1)
 	{

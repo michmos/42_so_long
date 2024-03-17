@@ -31,7 +31,7 @@ typedef struct s_map
 } t_map;
 
 
-typedef struct s_imgs
+typedef struct s_img_list
 {
 	mlx_image_t *space;
 	mlx_image_t *wall;
@@ -39,7 +39,7 @@ typedef struct s_imgs
 	mlx_image_t *exit;
 	mlx_image_t *items;
 	mlx_image_t *enemies;
-} t_imgs;
+} t_img_list;
 
 enum e_entity
 {
@@ -57,24 +57,24 @@ enum e_entity
  * - multiple frames per array are used for animations
  * @param current_frame Index to keep track of current frame
  */
-typedef struct s_object
+typedef struct s_entity
 {
 	mlx_image_t	***frames;
 	int			num_variations;
 	int			num_frames;
 	int			current_frame;
-} t_object;
+} t_entity;
 
 
-typedef struct s_entities
+typedef struct s_entity_list
 {
-	t_object space;
-	t_object wall;
-	t_object player;
-	t_object exit;
-	t_object item;
-	t_object enemy;
-} t_entities;
+	t_entity space;
+	t_entity wall;
+	t_entity player;
+	t_entity exit;
+	t_entity item;
+	t_entity enemy;
+} t_entity_list;
 
 
 // map_init.c ----------------------------------------------------------------//
@@ -87,12 +87,12 @@ int	error_check(t_map *map);
 int	has_valid_path(t_map *map);
 
 // load_images.c -------------------------------------------------------------//
-int load_images(mlx_t *mlx, t_imgs *imgs);
+int load_images(mlx_t *mlx, t_img_list *imgs);
 
 // sprites.c -----------------------------------------------------------------//
 mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet);
 
 // init_entities.c -----------------------------------------------------------//
-int	init_entities(mlx_t *mlx, t_entities *entities, t_imgs* imgs);
+int	init_entities(mlx_t *mlx, t_entity_list *entities, t_img_list* imgs);
 
 #endif
