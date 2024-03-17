@@ -17,7 +17,7 @@ void	delete_frames(mlx_t *mlx, mlx_image_t **frames)
 	free(frames);
 }
 
-void	delete_animations(mlx_t	*mlx, mlx_image_t ***sprites)
+void	delete_sprites(mlx_t *mlx, mlx_image_t ***sprites)
 {
 	int	i;
 
@@ -30,3 +30,4 @@ void	delete_animations(mlx_t	*mlx, mlx_image_t ***sprites)
 	}
 	free(sprites);
 }
+

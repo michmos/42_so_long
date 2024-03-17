@@ -3,8 +3,8 @@
 
 static int init_entity(mlx_t *mlx, t_entity *entity, mlx_image_t *img)
 {
-	entity->frames = split_sprite_sheet(mlx, img);
-	if (!entity->frames)
+	entity->sprites = split_sprite_sheet(mlx, img);
+	if (!entity->sprites)
 		return (-1);
 	entity->num_variations = img->height / TEXTURE_WIDTH;
 	entity->num_frames = img->width / TEXTURE_WIDTH;

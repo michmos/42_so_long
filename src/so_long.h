@@ -59,7 +59,7 @@ enum e_entity
  */
 typedef struct s_entity
 {
-	mlx_image_t	***frames;
+	mlx_image_t	***sprites;
 	int			num_variations;
 	int			num_frames;
 	int			current_frame;
