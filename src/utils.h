@@ -77,4 +77,24 @@ int get_rgba(int r, int g, int b, int a);
 */
 int	get_pixel(mlx_image_t *img, int y, int x);
 
+
+// utils_free.c --------------------------------------------------------------//
+/*
+* This function deletes each image of a sprite, before it frees the memory 
+* holding the pointers to the images
+*
+* @param mlx The mlx window the imgs refer to
+* @param frames The array holding the pointers to the imgs
+*/
+void	delete_frames(mlx_t *mlx, mlx_image_t **frames);
+
+/*
+* This function deletes each image of each sprite, held by sprites and frees the
+* related memory.
+*
+* @param mlx The mlx window the imgs refer to
+* @param sprites The array holding several sprites, consisting of several imgs
+*/
+void	delete_sprites(mlx_t	*mlx, mlx_image_t ***sprites);
+
 #endif
