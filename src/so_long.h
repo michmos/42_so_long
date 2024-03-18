@@ -10,7 +10,7 @@
 # include "utils/utils.h"
 # include <fcntl.h>
 
-# define TEXTURE_WIDTH 256
+# define TEXTURE_WIDTH 64
 
 # define SPACE_TEXTURE "textures/ocean_cleanup/textures/water_sprite_sheet.png"
 # define WALL_TEXTURE "textures/rock.png"
@@ -83,7 +83,7 @@ int	all_items_collected(char **map);
 int load_images(mlx_t *mlx, t_img_list *imgs);
 
 // sprites.c -----------------------------------------------------------------//
-mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet);
+mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, int num_variations, int num_frames);
 
 // init_entities.c -----------------------------------------------------------//
 int	init_entities(mlx_t *mlx, t_entity_list *entities, t_img_list* imgs);

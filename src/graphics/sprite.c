@@ -28,19 +28,12 @@ mlx_image_t	*dup_frame(mlx_t *mlx, mlx_image_t *src, int start_x, int start_y)
 	return (frame);
 }
 
-mlx_image_t **split_into_frames(mlx_t *mlx, mlx_image_t *sprite_sheet, int row)
+mlx_image_t **split_into_frames(mlx_t *mlx, mlx_image_t *sprite_sheet, int row, int num_frames)
 {
 	int			i;
-	int			num_frames;
 	mlx_image_t	**frames;
 
 	i = 0;
-	num_frames = sprite_sheet->width / TEXTURE_WIDTH;
-	if (num_frames == 0)
-	{
-		print_err("Width of pngs needs to be >= TEXTURE_WIDTH");
-		return (NULL);
-	}
 	frames = (mlx_image_t **) malloc((num_frames + 1) * sizeof(mlx_image_t *));
 	if (!frames)
 	{
@@ -60,19 +53,13 @@ mlx_image_t **split_into_frames(mlx_t *mlx, mlx_image_t *sprite_sheet, int row)
 	return (frames);
 }
 
-mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet)
+mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, int num_variations, int num_frames)
 {
 	mlx_image_t	***sprites;
-	int			num_variations;
 	int			i;
 
 
 	num_variations = sprite_sheet->height / TEXTURE_WIDTH;
-	if (num_variations == 0)
-	{
-		print_err("Height of pngs needs to be >= TEXTURE_WIDTH");
-		return (NULL);
-	}
 	sprites = (mlx_image_t ***) malloc((num_variations + 1) * sizeof(mlx_image_t **));
 	if (!sprites)
 	{
@@ -81,7 +68,7 @@ mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet)
 	i = 0;
 	while (i < num_variations)
 	{
-		sprites[i] = split_into_frames(mlx, sprite_sheet, i);
+		sprites[i] = split_into_frames(mlx, sprite_sheet, i, num_frames);
 		if (!sprites[i])
 		{
 			delete_sprites(mlx, sprites);
