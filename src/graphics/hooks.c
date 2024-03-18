@@ -24,6 +24,7 @@ static void	update_animation(t_entity *entity, double mlx_delta_time)
 			entity->current_frame++;
 		}
 		entity->sprites[i][entity->current_frame]->enabled = true;
+		i++;
 	}
 }
 
@@ -34,3 +35,4 @@ void	my_loop_hook(void *param)
 	game = (t_game *) param;
 	update_animation(&game->entities.space,  game->mlx->delta_time);
 }
+

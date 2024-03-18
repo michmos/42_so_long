@@ -17,7 +17,7 @@ SRCS		:= \
 			   main.c init_entities.c free.c \
 			   parsing/map_init.c parsing/error_check.c parsing/error_check2.c \
 			   utils/utils.c utils/utils_free.c \
-			   graphics/load_images.c graphics/sprite.c
+			   graphics/load_images.c graphics/sprite.c graphics/hooks.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 OBJ_DIR		:= .build
