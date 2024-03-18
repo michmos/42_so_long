@@ -20,7 +20,7 @@ void	delete_sprites(mlx_t *mlx, mlx_image_t ***sprites)
 {
 	int	i;
 
-	if (!sprites | !*sprites)
+	if (!sprites || !*sprites)
 		return ;
 	while (sprites[i])
 	{
