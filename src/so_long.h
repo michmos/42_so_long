@@ -12,11 +12,17 @@
 
 # define TEXTURE_WIDTH 64
 
+# define SPACE_FPS 4
 # define SPACE_TEXTURE "textures/ocean_cleanup/textures/water_sprite_sheet.png"
+# define WALL_FPS 4
 # define WALL_TEXTURE "textures/rock.png"
+# define PLAYER_FPS 4
 # define PLAYER_TEXTURE "textures/ocean_cleanup/textures/boat_with_waves256_2.png"
+# define EXIT_FPS 4
 # define EXIT_TEXTURE "textures/exit.png"
+# define ITEM_FPS 4
 # define ITEM_TEXTURE "textures/trash.png"
+# define ENEMY_FPS 4
 # define ENEMY_TEXTURE "textures/fish.png"
 
 enum e_entity
@@ -55,6 +61,8 @@ typedef struct s_entity
 	int			num_variations;
 	int			num_frames;
 	int			current_frame;
+	int			fps;
+	double		delta_time;
 } t_entity;
 
 
@@ -98,5 +106,8 @@ int	init_entities(mlx_t *mlx, t_entity_list *entities, t_img_list* imgs);
 
 // free.c --------------------------------------------------------------------//
 void	free_entities(mlx_t *mlx, t_entity_list *entities);
+
+// hooks.c -------------------------------------------------------------------//
+void	my_loop_hook(void *param);
 
 #endif
