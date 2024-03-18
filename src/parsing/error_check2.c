@@ -45,10 +45,10 @@ int	has_valid_path(t_map *map)
 {
 	char **map_dup;
 
-	map_dup = dup_map(map->map, map->height);
+	map_dup = dup_map(map->map_data, map->height);
 	if (!map_dup)
 	{
-		free_2d_array((void **)map->map); // TODO: check whether this is everything that needs to be freed?
+		free_2d_array((void **)map->map_data); // TODO: check whether this is everything that needs to be freed?
 		exit(EXIT_FAILURE);
 	}
 	cross_reachable_space(map_dup, map->player_pos[0], map->player_pos[1]);

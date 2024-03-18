@@ -10,7 +10,7 @@ static int	has_e_c_p(t_map *map)
 	{
 		return (false);
 	}
-	find_item_pos(map->map, ITEM, &y_pos, &x_pos);
+	find_item_pos(map->map_data, ITEM, &y_pos, &x_pos);
 	if (y_pos == -1)
 	{
 		return (false);
@@ -23,9 +23,9 @@ static int	is_rectangular(t_map *map)
 	int	i;
 
 	i = 0;
-	while (map->map[i])
+	while (map->map_data[i])
 	{
-		if ((int) ft_strlen(map->map[i]) != map->width)
+		if ((int) ft_strlen(map->map_data[i]) != map->width)
 		{
 			return (false);
 		}
@@ -40,23 +40,23 @@ static int	is_closed(t_map *map)
 	int	j;
 
 	i = 0;
-	while (map->map[0][i])
+	while (map->map_data[0][i])
 	{
-		if (map->map[0][i] != WALL)
+		if (map->map_data[0][i] != WALL)
 			return (false);
 		i++;
 	}
 	j = 1;
 	while (j < map->height - 1)
 	{
-		if (map->map[j][0] != WALL || map->map[j][map->width -1] != WALL)
+		if (map->map_data[j][0] != WALL || map->map_data[j][map->width -1] != WALL)
 			return (false);
 		j++;
 	}
 	i = 0;
-	while (map->map[map->height - 1][i])
+	while (map->map_data[map->height - 1][i])
 	{
-		if (map->map[map->height -1][i] != WALL)
+		if (map->map_data[map->height -1][i] != WALL)
 			return (false);
 		i++;
 	}
@@ -73,16 +73,16 @@ static int	has_duplicates(t_map *map)
 	exit_pos[1] = map->exit_pos[1];
 	player_pos[0] = map->player_pos[0];
 	player_pos[1] = map->player_pos[1];
-	map->map[player_pos[0]][player_pos[1]] = 'x';
-	find_item_pos(map->map, PLAYER, &temp[0], &temp[1]);
+	map->map_data[player_pos[0]][player_pos[1]] = 'x';
+	find_item_pos(map->map_data, PLAYER, &temp[0], &temp[1]);
 	if (temp[0] != -1)
 		return (true);
-	map->map[exit_pos[0]][exit_pos[1]] = 'x';
-	find_item_pos(map->map, EXIT, &temp[0], &temp[1]);
+	map->map_data[exit_pos[0]][exit_pos[1]] = 'x';
+	find_item_pos(map->map_data, EXIT, &temp[0], &temp[1]);
 	if (temp[0] != -1)
 		return (true);
-	map->map[exit_pos[0]][exit_pos[1]] = EXIT;
-	map->map[player_pos[0]][player_pos[1]] = PLAYER;
+	map->map_data[exit_pos[0]][exit_pos[1]] = EXIT;
+	map->map_data[player_pos[0]][player_pos[1]] = PLAYER;
 	return (false);
 }
 

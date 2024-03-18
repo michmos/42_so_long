@@ -70,13 +70,13 @@ static size_t	get_height(char **arr)
 
 void	init_map(t_map *map, const char *map_path)
 {
-	map->map = get_map(map_path);
-	if (!map->map)
+	map->map_data = get_map(map_path);
+	if (!map->map_data)
 	{
 		exit(EXIT_FAILURE);
 	}
-	map->height = get_height(map->map);
-	map->width = ft_strlen(map->map[0]);
-	find_item_pos(map->map, 'E', &map->exit_pos[0], &map->exit_pos[1]);
-	find_item_pos(map->map, 'P', &map->player_pos[0], &map->player_pos[1]);
+	map->height = get_height(map->map_data);
+	map->width = ft_strlen(map->map_data[0]);
+	find_item_pos(map->map_data, 'E', &map->exit_pos[0], &map->exit_pos[1]);
+	find_item_pos(map->map_data, 'P', &map->player_pos[0], &map->player_pos[1]);
 }

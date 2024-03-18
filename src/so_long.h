@@ -32,7 +32,7 @@ typedef struct s_map
 {
 	int		height;
 	int		width;
-	char	**map;
+	char	**map_data;
 	int		steps_min;
 	int		player_pos[2];
 	int		exit_pos[2];
@@ -67,6 +67,14 @@ typedef struct s_entity_list
 	t_entity item;
 	t_entity enemy;
 } t_entity_list;
+
+typedef struct	s_game
+{
+	t_map 			map;
+	mlx_t			*mlx;
+	t_entity_list	entities;
+
+} t_game;
 
 
 // map_init.c ----------------------------------------------------------------//
