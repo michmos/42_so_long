@@ -2,7 +2,7 @@
 #include "so_long.h"
 
 // TODO: DOWNLOAD MLX FROM GITHUB INSTEAD OF PUSHING IT
-// TODO: EMPTY LINES IN THE MIDDLE ARE UNVALID
+// TODO: EMPTY LINES IN THE MIDDLE ARE UNVALID -- UPDATE FREEING PROCEDURE
 // TODO: Check other settings
 //
 int	main(int argc, char *argv[])
