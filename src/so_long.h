@@ -38,7 +38,8 @@ typedef struct s_map
 {
 	int		height;
 	int		width;
-	char	**map_data;
+	char	**map_2d;
+	char	*map_1d;
 	int		steps_min;
 	int		player_pos[2];
 	int		exit_pos[2];

@@ -29,11 +29,10 @@ static char	*read_file(int fd)
 	return (content);
 }
 
-static char **get_map(const char *map_path)
+static char *get_map(const char *map_path)
 {
 	int 	fd;
-	char	*content;
-	char	**map;
+	char	*map;
 	int		strlen;
 
 	strlen = ft_strlen(map_path);
@@ -44,13 +43,11 @@ static char **get_map(const char *map_path)
 	{
 		err_exit("opening file failed");
 	}
-	content = read_file(fd);
-	if (!content)
+	map = read_file(fd);
+	if (!map)
 	{
 		err_exit("reading file failed");
 	}
-	map = ft_split(content, '\n');
-	free(content);
 	return (map);
 }
 
@@ -70,13 +67,15 @@ static size_t	get_height(char **arr)
 
 void	init_map(t_map *map, const char *map_path)
 {
-	map->map_data = get_map(map_path);
-	if (!map->map_data)
+	map->map_1d = get_map(map_path);
+	map->map_2d = ft_split(map->map_1d, '\n');
+	if (!map->map_2d)
 	{
+		free(map->map_1d);
 		exit(EXIT_FAILURE);
 	}
-	map->height = get_height(map->map_data);
-	map->width = ft_strlen(map->map_data[0]);
-	find_item_pos(map->map_data, 'E', &map->exit_pos[0], &map->exit_pos[1]);
-	find_item_pos(map->map_data, 'P', &map->player_pos[0], &map->player_pos[1]);
+	map->height = get_height(map->map_2d);
+	map->width = ft_strlen(map->map_2d[0]);
+	find_item_pos(map->map_2d, 'E', &map->exit_pos[0], &map->exit_pos[1]);
+	find_item_pos(map->map_2d, 'P', &map->player_pos[0], &map->player_pos[1]);
 }
