@@ -53,20 +53,19 @@ mlx_image_t **split_into_frames(mlx_t *mlx, mlx_image_t *sprite_sheet, int row, 
 	return (frames);
 }
 
-mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, int num_variations, int num_frames)
+mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, int num_vars, int num_frames)
 {
 	mlx_image_t	***sprites;
 	int			i;
 
 
-	num_variations = sprite_sheet->height / TEXTURE_WIDTH;
-	sprites = (mlx_image_t ***) malloc((num_variations + 1) * sizeof(mlx_image_t **));
+	sprites = (mlx_image_t ***) malloc((num_vars + 1) * sizeof(mlx_image_t **));
 	if (!sprites)
 	{
 		return (NULL);
 	}
 	i = 0;
-	while (i < num_variations)
+	while (i < num_vars)
 	{
 		sprites[i] = split_into_frames(mlx, sprite_sheet, i, num_frames);
 		if (!sprites[i])
