@@ -89,4 +89,14 @@ void	delete_frames(mlx_t *mlx, mlx_image_t **frames);
 */
 void	delete_sprites(mlx_t	*mlx, mlx_image_t ***sprites);
 
+
+/*
+* This function returns true if the map contains a specific entity, false
+* otherwise.
+*
+* @param map The map to search the character in
+* @param entity The character the look for
+*/
+int has_entity(char **map, int entity);
+
 #endif

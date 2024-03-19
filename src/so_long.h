@@ -94,7 +94,6 @@ int	error_check(t_map *map);
 
 // error_check2.c ------------------------------------------------------------//
 int	has_valid_path(t_map *map);
-int	all_items_collected(char **map);
 
 // load_images.c -------------------------------------------------------------//
 int load_images(mlx_t *mlx, t_img_list *imgs);
