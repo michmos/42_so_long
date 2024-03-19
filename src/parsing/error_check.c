@@ -1,38 +1,6 @@
 
 #include "../so_long.h"
 
-static int	has_e_c_p(t_map *map)
-{
-	int	y_pos;
-	int	x_pos;
-
-	if (map->player_pos[0] == -1 || map->exit_pos[0] == -1)
-	{
-		return (false);
-	}
-	find_item_pos(map->map_2d, ITEM, &y_pos, &x_pos);
-	if (y_pos == -1)
-	{
-		return (false);
-	}
-	return (true);
-}
-
-static int	is_rectangular(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (map->map_2d[i])
-	{
-		if ((int) ft_strlen(map->map_2d[i]) != map->width)
-		{
-			return (false);
-		}
-		i++;
-	}
-	return (true);
-}
 
 static int	is_closed(t_map *map)
 {
@@ -63,36 +31,67 @@ static int	is_closed(t_map *map)
 	return (true);
 }
 
+static int	is_rectangular(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (map->map_2d[i])
+	{
+		if ((int) ft_strlen(map->map_2d[i]) != map->width)
+		{
+			return (false);
+		}
+		i++;
+	}
+	return (true);
+}
+
 static int	has_duplicates(t_map *map)
 {
-	int		exit_pos[2];
-	int		player_pos[2];
-	int		temp[2];
+	bool	player;
+	bool	exit;
+	int		i;
 
-	exit_pos[0] = map->exit_pos[0];
-	exit_pos[1] = map->exit_pos[1];
-	player_pos[0] = map->player_pos[0];
-	player_pos[1] = map->player_pos[1];
-	map->map_2d[player_pos[0]][player_pos[1]] = 'x';
-	find_item_pos(map->map_2d, PLAYER, &temp[0], &temp[1]);
-	if (temp[0] != -1)
-		return (true);
-	map->map_2d[exit_pos[0]][exit_pos[1]] = 'x';
-	find_item_pos(map->map_2d, EXIT, &temp[0], &temp[1]);
-	if (temp[0] != -1)
-		return (true);
-	map->map_2d[exit_pos[0]][exit_pos[1]] = EXIT;
-	map->map_2d[player_pos[0]][player_pos[1]] = PLAYER;
+	i = 0;
+	player = false;
+	exit = false;
+	while (map->map_1d[i])
+	{
+		if (map->map_1d[i] == PLAYER && player == true)
+			return (true);
+		else if (map->map_1d[i] == EXIT && exit == true)
+			return (true);
+		else if (map->map_1d[i] == PLAYER)
+			player = true;
+		else if (map->map_1d[i] == EXIT)
+			player = true;
+		i++;
+	}
 	return (false);
 }
 
-static int	has_empty_lines(char *map)
+static int	has_e_c_p(t_map *map)
+{
+	if (map->player_pos[0] == -1 || map->exit_pos[0] == -1)
+	{
+		return (false);
+	}
+	if (!has_entity(map->map_2d, ITEM))
+	{
+		return (false);
+	}
+	return (true);
+}
+
+static int	has_inner_empty_lines(char *map)
 {
 	int		i;
 	char	*temp;
 
 	if (!map)
 		return (-1);
+	i = 0;
 	while(map[i] && map[i] == '\n')
 	{
 		i++;
@@ -116,9 +115,9 @@ static int	has_empty_lines(char *map)
 
 int	error_check(t_map *map)
 {
-	if (has_empty_lines(map->map_1d))
-		print_err("Map should not contain empty lines");
-	if (!has_e_c_p(map))
+	if (has_inner_empty_lines(map->map_1d))
+		print_err("Map should not contain inner empty lines");
+	else if (!has_e_c_p(map))
 		print_err("Map must contain the characters E, C and P");
 	else if (has_duplicates(map))
 		print_err("Map: There can only be one start and one exit");

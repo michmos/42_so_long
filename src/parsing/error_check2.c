@@ -1,28 +1,6 @@
 
 #include "../so_long.h"
 
-int	all_items_collected(char **map)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	if (!map || !*map)
-		return (-1);
-	while (map[y])
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			if (map[y][x] == ITEM)
-				return (false);
-			x++;
-		}
-		y++;
-	}
-	return (true);
-}
-
 static void	cross_reachable_space(char **map, int y, int x)
 {
 	if (x == 0 || map[y][x] == '\0' || y == 0 || map[y] == NULL)
@@ -52,7 +30,7 @@ int	has_valid_path(t_map *map)
 		exit(EXIT_FAILURE);
 	}
 	cross_reachable_space(map_dup, map->player_pos[0], map->player_pos[1]);
-	if (map_dup[map->exit_pos[0]][map->exit_pos[1]] == 'x' && all_items_collected(map_dup))
+	if (!has_entity(map_dup, EXIT) && !has_entity(map_dup, ITEM))
 	{
 		free_2d_array((void **) map_dup);
 		return (true);
