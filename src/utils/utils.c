@@ -44,26 +44,6 @@ void	find_item_pos(char **map, char item, int *y_pos, int *x_pos)
 	*y_pos = -1;
 }
 
-void	free_2d_array(void **arr)
-{
-	int y;
-
-	y = 0;
-	if (!arr)
-		return ;
-	if (!arr[0])
-	{
-		free(arr);
-		return ;
-	}
-	while (arr[y])
-	{
-		free(arr[y]);
-		y++;
-	}
-	free(arr);
-}
-
 char	**dup_map(char **map, size_t	size)
 {
 	int 	y;
