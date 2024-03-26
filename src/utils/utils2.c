@@ -12,3 +12,15 @@ int has_entity(char **map, int entity)
 	}
 	return (true);
 }
+
+int	circular_increment(int index, int max)
+{
+	if (index < max)
+	{
+		return (index + 1);
+	}
+	else
+	{
+		return (0);
+	}
+}

@@ -99,4 +99,14 @@ void	delete_sprites(mlx_t	*mlx, mlx_image_t ***sprites);
 */
 int has_entity(char **map, int entity);
 
+/*
+* This function increments an index in a circular manner, i.e. it starts
+* from the beginning after reaching the max value
+*
+* @param index The current index
+* @param max The max value for the index
+*/
+
+int	circular_increment(int index, int max);
+
 #endif
