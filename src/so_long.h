@@ -31,7 +31,8 @@ enum e_entity
 	WALL = '1',
 	PLAYER = 'P',
 	EXIT = 'E',
-	ITEM = 'C'
+	ITEM = 'C',
+	ENEMY = 'M'
 };
 
 typedef struct s_map
@@ -58,12 +59,14 @@ typedef struct s_img_list
 
 typedef struct s_entity
 {
-	mlx_image_t	***sprites;
-	int			num_variations;
-	int			num_frames;
-	int			current_frame;
-	int			fps;
-	double		delta_time;
+	enum e_entity	type;
+	mlx_image_t		***sprites;
+	int				num_variations;
+	int				current_variation;
+	int				num_frames;
+	int				current_frame;
+	int				fps;
+	double			delta_time;
 } t_entity;
 
 
