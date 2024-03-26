@@ -113,4 +113,7 @@ void	free_entities(mlx_t *mlx, t_entity_list *entities);
 // hooks.c -------------------------------------------------------------------//
 void	my_loop_hook(void *param);
 
+// display_map.c -------------------------------------------------------------//
+int	display_map(t_game *game);
+
 #endif
