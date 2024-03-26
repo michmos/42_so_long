@@ -15,10 +15,7 @@ static void	update_animation(t_entity *entity, double mlx_delta_time)
 	entity->delta_time = 0;
 
 	old_frame = entity->current_frame;
-	if (new_frame < entity->num_frames - 1)
-		new_frame = old_frame + 1;
-	else
-		new_frame = 0;
+	new_frame = circular_increment(entity->current_frame, entity->num_frames - 1);
 	i = 0;
 	while (i < entity->num_variations)
 	{
@@ -29,11 +26,21 @@ static void	update_animation(t_entity *entity, double mlx_delta_time)
 	entity->current_frame = new_frame;
 }
 
+static void	update_animations(t_game *game)
+{
+	update_animation(&game->entities.space,  game->mlx->delta_time);
+	update_animation(&game->entities.wall,  game->mlx->delta_time);
+	update_animation(&game->entities.player,  game->mlx->delta_time);
+	update_animation(&game->entities.exit,  game->mlx->delta_time);
+	update_animation(&game->entities.item,  game->mlx->delta_time);
+	update_animation(&game->entities.enemy,  game->mlx->delta_time);
+}
+
 void	my_loop_hook(void *param)
 {
 	t_game *game;
 
 	game = (t_game *) param;
-	update_animation(&game->entities.space,  game->mlx->delta_time);
+	update_animations(game);
 }
 
