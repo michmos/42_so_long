@@ -3,7 +3,7 @@
 
 static void	update_animation(t_entity *entity, double mlx_delta_time)
 {
-	int	i;
+	int	var;
 	int	old_frame;
 	int	new_frame;
 
@@ -16,12 +16,16 @@ static void	update_animation(t_entity *entity, double mlx_delta_time)
 
 	old_frame = entity->current_frame;
 	new_frame = circular_increment(entity->current_frame, entity->num_frames - 1);
-	i = 0;
-	while (i < entity->num_variations)
+	var = 0;
+	if (entity->type == PLAYER)
+		var = entity->current_variation;
+	while (var < entity->num_variations)
 	{
-		entity->sprites[i][old_frame]->enabled = false;
-		entity->sprites[i][new_frame]->enabled = true;
-		i++;
+		entity->sprites[var][old_frame]->enabled = false;
+		entity->sprites[var][new_frame]->enabled = true;
+		if (entity->type == PLAYER)
+			break ;
+		var++;
 	}
 	entity->current_frame = new_frame;
 }
