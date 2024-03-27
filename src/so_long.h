@@ -21,6 +21,14 @@ enum e_entity
 	ENEMY = 'M'
 };
 
+enum e_direction
+{
+	UP,
+	LEFT,
+	DOWN,
+	RIGHT
+};
+
 typedef struct s_map
 {
 	int		height;

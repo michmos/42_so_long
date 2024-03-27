@@ -17,7 +17,7 @@
 # define ENEMY_TEXTURE "textures/enemies/fish.png"
 # define PLAYER_SPEED 5
 
-enum e_player_sprite_sheet
+enum e_player_motion
 {
 	STANDING_RIGHT = 0,
 	STANDING_LEFT,
