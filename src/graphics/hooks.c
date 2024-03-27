@@ -1,5 +1,6 @@
 
 #include "../so_long.h"
+#include <stdio.h>
 
 static void	update_animation(t_entity *entity, double mlx_delta_time)
 {
@@ -40,11 +41,62 @@ static void	update_animations(t_game *game)
 	update_animation(&game->entities.enemy,  game->mlx->delta_time);
 }
 
+static void	move_sprites(t_entity *entity, enum e_direction direction, int distance)
+{
+	int	vars;
+	int	frames;
+
+
+	vars = 0;
+	while(vars < entity->num_variations)
+	{
+		frames = 0;
+		while(frames < entity->num_frames)
+		{
+			if (direction == UP)
+				entity->sprites[vars][frames]->instances[0].y -= distance;
+			else if (direction == LEFT)
+				entity->sprites[vars][frames]->instances[0].x -= distance;
+			else if (direction == DOWN)
+				entity->sprites[vars][frames]->instances[0].y += distance;
+			else if (direction == RIGHT)
+				entity->sprites[vars][frames]->instances[0].x += distance;
+			frames++;
+		}
+		vars++;
+	}
+}
+
+static void	move_player(t_game *game)
+{
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+	{
+		move_sprites(&game->entities.player, UP, 10);
+	}
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+	{
+		move_sprites(&game->entities.player, LEFT, 10);
+	}
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+	{
+		move_sprites(&game->entities.player, DOWN, 10);
+	}
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+	{
+		move_sprites(&game->entities.player, RIGHT, 10);
+	}
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+	{
+		; // TERMINATION
+	}
+}
+
 void	my_loop_hook(void *param)
 {
 	t_game *game;
 
 	game = (t_game *) param;
+	move_player(game);
 	update_animations(game);
 }
 
