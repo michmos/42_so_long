@@ -41,7 +41,7 @@ static void	update_animations(t_game *game)
 	update_animation(&game->entities.enemy,  game->mlx->delta_time);
 }
 
-static void	move_sprites(t_entity *entity, enum e_direction direction, int distance)
+static void	move_sprites(t_entity *entity, enum e_direction direction)
 {
 	int	vars;
 	int	frames;
@@ -54,40 +54,63 @@ static void	move_sprites(t_entity *entity, enum e_direction direction, int dista
 		while(frames < entity->num_frames)
 		{
 			if (direction == UP)
-				entity->sprites[vars][frames]->instances[0].y -= distance;
+				entity->sprites[vars][frames]->instances[0].y -= PLAYER_SPEED;
 			else if (direction == LEFT)
-				entity->sprites[vars][frames]->instances[0].x -= distance;
+				entity->sprites[vars][frames]->instances[0].x -= PLAYER_SPEED;
 			else if (direction == DOWN)
-				entity->sprites[vars][frames]->instances[0].y += distance;
+				entity->sprites[vars][frames]->instances[0].y += PLAYER_SPEED;
 			else if (direction == RIGHT)
-				entity->sprites[vars][frames]->instances[0].x += distance;
+				entity->sprites[vars][frames]->instances[0].x += PLAYER_SPEED;
 			frames++;
 		}
 		vars++;
 	}
 }
 
-static void	move_player(t_game *game)
+static void	update_variation(t_entity *player, enum e_player_motion motion)
 {
-	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+	int	current_var;
+	int	current_frame;
+
+	current_var = player->current_variation;
+	current_frame = player->current_frame;
+
+	player->sprites[current_var][current_frame]->enabled = false;
+	player->sprites[motion][current_frame]->enabled = true;
+	player->current_variation = motion;
+}
+
+static void	move_player(mlx_t *mlx, t_entity *player)
+{
+	if (mlx_is_key_down(mlx, MLX_KEY_W))
 	{
-		move_sprites(&game->entities.player, UP, 10);
+		move_sprites(player, UP);
 	}
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+	else if (mlx_is_key_down(mlx, MLX_KEY_A))
 	{
-		move_sprites(&game->entities.player, LEFT, 10);
+		update_variation(player, MOVING_LEFT);
+		move_sprites(player, LEFT);
 	}
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+	else if (mlx_is_key_down(mlx, MLX_KEY_S))
 	{
-		move_sprites(&game->entities.player, DOWN, 10);
+		move_sprites(player, DOWN);
 	}
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+	else if (mlx_is_key_down(mlx, MLX_KEY_D))
 	{
-		move_sprites(&game->entities.player, RIGHT, 10);
+		update_variation(player, MOVING_RIGHT);
+		move_sprites(player, RIGHT);
 	}
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+	else
 	{
-		; // TERMINATION
+		if (player->current_variation == MOVING_LEFT)
+		{
+			update_variation(player, STANDING_LEFT);
+		}
+		else if (player->current_variation == MOVING_RIGHT)
+		{
+			update_variation(player, STANDING_RIGHT);
+		}
+
 	}
 }
 
@@ -96,7 +119,7 @@ void	my_loop_hook(void *param)
 	t_game *game;
 
 	game = (t_game *) param;
-	move_player(game);
+	move_player(game->mlx, &game->entities.player);
 	update_animations(game);
 }
 
