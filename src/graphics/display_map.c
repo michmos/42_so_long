@@ -1,22 +1,38 @@
 
 #include "../so_long.h"
 
+static int	display_all_frames(mlx_t *mlx, mlx_image_t **sprite, int x, int y)
+{
+	int frame;
+
+	frame = 0;
+	while (sprite[frame])
+	{
+		if (mlx_image_to_window(mlx, sprite[frame], TEXTURE_WIDTH * x, TEXTURE_WIDTH * y) == -1)
+			return (-1);
+		sprite[frame]->enabled = false;
+		frame++;
+	}
+	return (0);
+}
+
 static int	display_sprite(mlx_t *mlx, t_entity *entity, int x, int y)
 {
-	int	frames;
-
-	// if (entity->type != PLAYER) // TODO: how to handle player
 	entity->current_variation = circular_increment(entity->current_variation, entity->num_variations - 1);
-	frames = 0;
-	while (frames < entity->num_frames)
+	if (entity->type == PLAYER)
 	{
-		if (mlx_image_to_window(mlx, entity->sprites[entity->current_variation][frames], TEXTURE_WIDTH * x, TEXTURE_WIDTH * y) == -1)
-			return (-1);
-		if (frames == 0)
-			entity->sprites[entity->current_variation][frames]->enabled = true;
-		else
-			entity->sprites[entity->current_variation][frames]->enabled = false;
-		frames++;
+		while (entity->sprites[entity->current_variation])
+		{
+			display_all_frames(mlx, entity->sprites[entity->current_variation], x, y);
+			entity->current_variation++;
+		}
+		entity->sprites[0][0]->enabled = true;
+		entity->current_variation = 0;
+	}
+	else
+	{
+		display_all_frames(mlx, entity->sprites[entity->current_variation], x, y);
+		entity->sprites[entity->current_variation][0]->enabled = true;
 	}
 	return (0);
 }
