@@ -63,7 +63,6 @@ typedef struct s_entity
 	double			delta_time;
 } t_entity;
 
-
 typedef struct s_entity_list
 {
 	t_entity space;
@@ -79,7 +78,6 @@ typedef struct	s_game
 	t_map 			map;
 	mlx_t			*mlx;
 	t_entity_list	entities;
-
 } t_game;
 
 
@@ -109,5 +107,8 @@ void	my_loop_hook(void *param);
 
 // display_map.c -------------------------------------------------------------//
 int	display_map(t_game *game);
+
+// move_player.c
+void	move_player(mlx_t *mlx, t_entity *player, t_map *map);
 
 #endif
