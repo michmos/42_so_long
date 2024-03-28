@@ -1,5 +1,6 @@
 
 #include "../so_long.h"
+#include <stdio.h>
 
 static void	move_sprites(t_entity *entity, enum e_direction direction)
 {
@@ -73,6 +74,45 @@ static int	get_steering_key(mlx_t	*mlx)
 		return (-1);
 }
 
+void	update_map(t_map *map, int direction)
+{
+	static unsigned int	steps;
+
+	if (direction == UP)
+		map->pixel_delta[0] += PLAYER_SPEED;
+	else if (direction == DOWN)
+		map->pixel_delta[0] -= PLAYER_SPEED;
+	else if (direction == LEFT)
+		map->pixel_delta[0] -= PLAYER_SPEED;
+	else if (direction == RIGHT)
+		map->pixel_delta[0] += PLAYER_SPEED;
+
+	if (map->pixel_delta[0] < - TEXTURE_WIDTH)
+	{
+		map->player_pos[0] -= 1;
+		map->pixel_delta[0] += TEXTURE_WIDTH;
+		steps++;
+	}
+	if (map->pixel_delta[0] >  TEXTURE_WIDTH)
+	{
+		map->player_pos[0] += 1;
+		map->pixel_delta[0] -= TEXTURE_WIDTH;
+		steps++;
+	}
+	if (map->pixel_delta[1] >  TEXTURE_WIDTH)
+	{
+		map->player_pos[1] += 1;
+		map->pixel_delta[1] -= TEXTURE_WIDTH;
+		steps++;
+	}
+	if (map->pixel_delta[1] <  - TEXTURE_WIDTH)
+	{
+		map->player_pos[1] -= 1;
+		map->pixel_delta[1] += TEXTURE_WIDTH;
+		steps++;
+	}
+	printf("%i\n", steps);
+}
 
 void	move_player(mlx_t *mlx, t_entity *player, t_map *map)
 {
@@ -81,6 +121,9 @@ void	move_player(mlx_t *mlx, t_entity *player, t_map *map)
 	direction = get_steering_key(mlx);
 	if (direction != UP && direction != DOWN)
 		update_variation(player, direction, player->current_variation, player->current_frame);
+	update_map(map, direction);
+	// check_movability()
 	move_sprites(player, direction);
+	// update steps
 
 }
