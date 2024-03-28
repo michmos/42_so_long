@@ -37,6 +37,7 @@ typedef struct s_map
 	char	*map_1d;
 	int		steps_min;
 	int		player_pos[2];
+	int		pixel_delta[2];
 	int		exit_pos[2];
 
 } t_map;
