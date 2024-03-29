@@ -77,49 +77,39 @@ static int	get_steering_key(mlx_t	*mlx)
 void	update_map(t_map *map, int direction)
 {
 	static unsigned int	steps;
-	bool				changed;
 
-	changed = false;
 	if (direction == UP)
 		map->pixel_delta[0] += PLAYER_SPEED;
 	else if (direction == DOWN)
 		map->pixel_delta[0] -= PLAYER_SPEED;
 	else if (direction == LEFT)
-		map->pixel_delta[0] -= PLAYER_SPEED;
+		map->pixel_delta[1] -= PLAYER_SPEED;
 	else if (direction == RIGHT)
-		map->pixel_delta[0] += PLAYER_SPEED;
+		map->pixel_delta[1] += PLAYER_SPEED;
 
-	if (map->pixel_delta[0] < - TEXTURE_WIDTH)
+	if (map->pixel_delta[0] < (-1) * TEXTURE_WIDTH)
 	{
 		map->player_pos[0] -= 1;
 		map->pixel_delta[0] += TEXTURE_WIDTH;
 		steps++;
-		changed = true;
 	}
 	if (map->pixel_delta[0] >  TEXTURE_WIDTH)
 	{
 		map->player_pos[0] += 1;
 		map->pixel_delta[0] -= TEXTURE_WIDTH;
 		steps++;
-		changed = true;
 	}
 	if (map->pixel_delta[1] >  TEXTURE_WIDTH)
 	{
 		map->player_pos[1] += 1;
 		map->pixel_delta[1] -= TEXTURE_WIDTH;
 		steps++;
-		changed = true;
 	}
-	if (map->pixel_delta[1] <  - TEXTURE_WIDTH)
+	if (map->pixel_delta[1] <  (-1) * TEXTURE_WIDTH)
 	{
 		map->player_pos[1] -= 1;
 		map->pixel_delta[1] += TEXTURE_WIDTH;
 		steps++;
-		changed = true;
-	}
-	if (changed == true)
-	{
-		printf("pixel delta %i %i -- steps %i\n", map->pixel_delta[0], map->pixel_delta[1], steps);
 	}
 }
 
