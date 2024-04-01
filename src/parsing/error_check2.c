@@ -29,7 +29,7 @@ int	has_valid_path(t_map *map)
 		free_2d_array((void **)map->map_2d); // TODO: check whether this is everything that needs to be freed?
 		exit(EXIT_FAILURE);
 	}
-	cross_reachable_space(map_dup, map->player_pos[0], map->player_pos[1]);
+	cross_reachable_space(map_dup, map->player_pos.y, map->player_pos.x);
 	if (!has_entity(map_dup, EXIT) && !has_entity(map_dup, ITEM))
 	{
 		free_2d_array((void **) map_dup);

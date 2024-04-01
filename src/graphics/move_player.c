@@ -1,5 +1,6 @@
 
 #include "../so_long.h"
+#include <math.h>
 #include <stdio.h>
 
 static void	move_sprites(t_entity *entity, enum e_direction direction)
@@ -81,17 +82,45 @@ static int	get_steering_key(mlx_t	*mlx)
 		return (-1);
 }
 
-static void	update_pixel_delta(int direction, int pixel_delta[2])
+static int	is_wall(char **map_2d, t_vector *new_pos)
 {
-	// update pixel delta
+	int	x1;
+	int	x2;
+	int	y1;
+	int	y2;
+
+	x1 = (int) new_pos->x;
+	x2 = round(new_pos->x);
+	y1 = (int) new_pos->y;
+	y2 = round(new_pos->y);
+	if (map_2d[y1][x1] == WALL || map_2d[y1][x2] == WALL 
+		|| map_2d[y2][x1] == WALL || map_2d[y2][x2] == WALL)
+	{
+		return (1);
+	}
+	return (0);
+}
+
+void	update_map(t_map *map, int direction)
+{
+	static unsigned int	steps;
+	t_vector			new_pos;
+
 	if (direction == UP)
-		pixel_delta[0] -= PLAYER_SPEED;
+		new_pos.y = map->player_pos.y - ((double) PLAYER_SPEED / (double) TEXTURE_WIDTH);
 	else if (direction == DOWN)
-		pixel_delta[0] += PLAYER_SPEED;
+		new_pos.y = map->player_pos.y + ((double) PLAYER_SPEED / (double) TEXTURE_WIDTH);
 	else if (direction == LEFT)
-		pixel_delta[1] -= PLAYER_SPEED;
+		new_pos.x = map->player_pos.x - ((double) PLAYER_SPEED / (double) TEXTURE_WIDTH);
 	else if (direction == RIGHT)
-		pixel_delta[1] += PLAYER_SPEED;
+		new_pos.x = map->player_pos.x + ((double) PLAYER_SPEED / (double) TEXTURE_WIDTH);
+
+	if (is_wall(map->map_2d, &new_pos))
+		;
+	if (round(new_pos.y) != round(map->player_pos.y) || round(new_pos.x) != round(map->player_pos.x))
+		steps++;
+	map->player_pos.x = new_pos.x;
+	map->player_pos.y = new_pos.y;
 }
 
 static int	wall_check(int pixel_delta[2], t_map *map)
@@ -145,19 +174,8 @@ void	move_player(mlx_t *mlx, t_entity *player, t_map *map)
 	static unsigned int	steps;
 
 	direction = get_steering_key(mlx);
-	update_motion(player, direction, player->current_variation, player->current_frame);
-	steps += update_player_pos(direction, map, player);
-	printf("steps %i\n", steps);
-	// ft_memcpy(backup1, pixel_delta, sizeof(int) * 2);
-	// update_pixel_delta(direction, pixel_delta);
-	// steps += update_player_pos(direction, map, player);
-	// // if (map->map_2d[map->player_pos[0]][map->player_pos[1]] == ITEM)
-	// // {
-	// //
-	// // }
-	// // else if (map->map_2d[map->player_pos[0]][map->player_pos[1]] == ENEMY)
-	// // {
-	// //
-	// // }
-	// //
+	if (direction != UP && direction != DOWN)
+		update_variation(player, direction, player->current_variation, player->current_frame);
+	update_map(map, direction);
+	move_sprites(player, direction);
 }

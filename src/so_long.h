@@ -10,6 +10,7 @@
 # include "utils/utils.h"
 # include "settings.h"
 # include <fcntl.h>
+# include <math.h>
 
 enum e_entity
 {
@@ -29,16 +30,21 @@ enum e_direction
 	RIGHT
 };
 
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+} t_vector;
+
 typedef struct s_map
 {
-	int		height;
-	int		width;
-	char	**map_2d;
-	char	*map_1d;
-	int		steps_min;
-	int		player_pos[2];
-	int		pixel_delta[2];
-	int		exit_pos[2];
+	int			height;
+	int			width;
+	char		**map_2d;
+	char		*map_1d;
+	int			steps_min;
+	t_vector	player_pos;
+	t_vector	exit_pos;
 
 } t_map;
 

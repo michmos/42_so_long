@@ -17,7 +17,7 @@ void	print_err(const char *err_message)
 	write(STDERR_FILENO, "\n", 1);
 }
 
-void	find_item_pos(char **map, char item, int *y_pos, int *x_pos)
+void	find_item_pos(char **map, char item, double *y_pos, double *x_pos)
 {
 	int y;
 	int	x;
@@ -32,8 +32,8 @@ void	find_item_pos(char **map, char item, int *y_pos, int *x_pos)
 		{
 			if (map[y][x] == item)
 			{
-				*x_pos = x;
-				*y_pos = y;
+				*x_pos = x + 0.5;
+				*y_pos = y + 0.5;
 				return ;
 			}
 			x++;

@@ -25,12 +25,12 @@ void	print_err(const char *err_message);
 * 
 * @param map The map to search for the item
 * @param item The item to look for
-* @param y_pos A pointer to an integer that will be initialized with the
+* @param y_pos A pointer to a double that will be initialized with the
 * y-location in case the item is found - otherwise -1
-* @param x_pos A pointer to an integer that will be initialized with the
+* @param x_pos A pointer to a double that will be initialized with the
 * x-location in case the item is found - otherwise -1
 */
-void	find_item_pos(char **map, char item, int *y_pos, int *x_pos);
+void	find_item_pos(char **map, char item, double *y_pos, double *x_pos);
 
 /*
 * This functions frees an array of pointers. Therefore the array needs to be

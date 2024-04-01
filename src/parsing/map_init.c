@@ -76,6 +76,6 @@ void	init_map(t_map *map, const char *map_path)
 	}
 	map->height = get_height(map->map_2d);
 	map->width = ft_strlen(map->map_2d[0]);
-	find_item_pos(map->map_2d, 'E', &map->exit_pos[0], &map->exit_pos[1]);
-	find_item_pos(map->map_2d, 'P', &map->player_pos[0], &map->player_pos[1]);
+	find_item_pos(map->map_2d, 'E', &map->exit_pos.y, &map->exit_pos.x);
+	find_item_pos(map->map_2d, 'P', &map->player_pos.y, &map->player_pos.x);
 }

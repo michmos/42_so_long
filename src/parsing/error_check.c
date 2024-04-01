@@ -4,29 +4,29 @@
 
 static int	is_closed(t_map *map)
 {
-	int	i;
-	int	j;
+	int	x;
+	int	y;
 
-	i = 0;
-	while (map->map_2d[0][i])
+	x = 0;
+	while (map->map_2d[0][x])
 	{
-		if (map->map_2d[0][i] != WALL)
+		if (map->map_2d[0][x] != WALL)
 			return (false);
-		i++;
+		x++;
 	}
-	j = 1;
-	while (j < map->height - 1)
+	y = 1;
+	while (y < map->height - 1)
 	{
-		if (map->map_2d[j][0] != WALL || map->map_2d[j][map->width -1] != WALL)
+		if (map->map_2d[y][0] != WALL || map->map_2d[y][map->width -1] != WALL)
 			return (false);
-		j++;
+		y++;
 	}
-	i = 0;
-	while (map->map_2d[map->height - 1][i])
+	x = 0;
+	while (map->map_2d[map->height - 1][x])
 	{
-		if (map->map_2d[map->height -1][i] != WALL)
+		if (map->map_2d[map->height -1][x] != WALL)
 			return (false);
-		i++;
+		x++;
 	}
 	return (true);
 }
@@ -73,7 +73,7 @@ static int	has_duplicates(t_map *map)
 
 static int	has_e_c_p(t_map *map)
 {
-	if (map->player_pos[0] == -1 || map->exit_pos[0] == -1)
+	if (map->player_pos.y == -1 || map->exit_pos.y == -1)
 	{
 		return (false);
 	}
