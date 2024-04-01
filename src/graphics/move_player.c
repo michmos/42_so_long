@@ -146,7 +146,6 @@ int	update_pos(t_map *map, int direction)
 void	move_player(mlx_t *mlx, t_entity *player, t_map *map)
 {
 	int					direction;
-	static unsigned int	steps;
 
 	direction = get_steering_key(mlx);
 	update_motion(player, direction, player->current_variation, player->current_frame);
