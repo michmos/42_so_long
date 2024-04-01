@@ -32,8 +32,8 @@ void	find_item_pos(char **map, char item, double *y_pos, double *x_pos)
 		{
 			if (map[y][x] == item)
 			{
-				*x_pos = x + 0.5;
-				*y_pos = y + 0.5;
+				*x_pos = x;
+				*y_pos = y;
 				return ;
 			}
 			x++;
