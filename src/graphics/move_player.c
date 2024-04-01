@@ -34,6 +34,13 @@ static enum e_player_motion	get_motion(int last_motion, int direction)
 		return (MOVING_LEFT);
 	else if (direction == RIGHT)
 		return (MOVING_RIGHT);
+	else if (direction == UP || direction == DOWN)
+	{
+		if (last_motion == MOVING_LEFT || last_motion == STANDING_LEFT)
+			return (MOVING_LEFT);
+		if (last_motion == MOVING_RIGHT || last_motion == STANDING_RIGHT)
+			return (MOVING_RIGHT);
+	}
 	else if (direction == -1)
 	{
 		if (last_motion == MOVING_LEFT)
@@ -44,7 +51,7 @@ static enum e_player_motion	get_motion(int last_motion, int direction)
 	return (last_motion);
 }
 
-static void	update_variation(t_entity *player, int direction, int last_motion, int current_frame)
+static void	update_motion(t_entity *player, int direction, int last_motion, int current_frame)
 {
 	enum e_player_motion	motion;
 
@@ -74,55 +81,83 @@ static int	get_steering_key(mlx_t	*mlx)
 		return (-1);
 }
 
-void	update_map(t_map *map, int direction)
+static void	update_pixel_delta(int direction, int pixel_delta[2])
 {
-	static unsigned int	steps;
-
+	// update pixel delta
 	if (direction == UP)
-		map->pixel_delta[0] += PLAYER_SPEED;
+		pixel_delta[0] -= PLAYER_SPEED;
 	else if (direction == DOWN)
-		map->pixel_delta[0] -= PLAYER_SPEED;
+		pixel_delta[0] += PLAYER_SPEED;
 	else if (direction == LEFT)
-		map->pixel_delta[1] -= PLAYER_SPEED;
+		pixel_delta[1] -= PLAYER_SPEED;
 	else if (direction == RIGHT)
-		map->pixel_delta[1] += PLAYER_SPEED;
-
-	if (map->pixel_delta[0] < (-1) * TEXTURE_WIDTH)
-	{
-		map->player_pos[0] -= 1;
-		map->pixel_delta[0] += TEXTURE_WIDTH;
-		steps++;
-	}
-	if (map->pixel_delta[0] >  TEXTURE_WIDTH)
-	{
-		map->player_pos[0] += 1;
-		map->pixel_delta[0] -= TEXTURE_WIDTH;
-		steps++;
-	}
-	if (map->pixel_delta[1] >  TEXTURE_WIDTH)
-	{
-		map->player_pos[1] += 1;
-		map->pixel_delta[1] -= TEXTURE_WIDTH;
-		steps++;
-	}
-	if (map->pixel_delta[1] <  (-1) * TEXTURE_WIDTH)
-	{
-		map->player_pos[1] -= 1;
-		map->pixel_delta[1] += TEXTURE_WIDTH;
-		steps++;
-	}
+		pixel_delta[1] += PLAYER_SPEED;
 }
+
+static int	wall_check(int pixel_delta[2], t_map *map)
+{
+	int	y;
+	int	x;
+
+	y = map->player_pos[0];
+	x = map->player_pos[1];
+	if (pixel_delta[0] < 0 && y > 0 && map->map_2d[y - 1][x] == WALL)
+		return (1);
+	else if (pixel_delta[0] > 0 && y < map->height - 1 && map->map_2d[y + 1][x] == WALL)
+		return (1);
+	else if (pixel_delta[1] < 0 && x > 0 && map->map_2d[y][x - 1] == WALL)
+		return (1);
+	else if (pixel_delta[1] > 0 && x < map->width - 1 && map->map_2d[y][x + 1] == WALL)
+		return (1);
+	else
+		return (0);
+}
+
+static int update_player_pos(int direction, t_map *map, t_entity *player)
+{
+	int			step;
+	static int	pixel_delta[2];
+	int			backup[2];
+
+	printf("pixel delta y %i x %i\n", pixel_delta[0], pixel_delta[1]);
+	step = 0;
+	ft_memcpy(backup, pixel_delta, sizeof(int) * 2);
+	update_pixel_delta(direction, pixel_delta);
+	if (wall_check(pixel_delta, map) == true)
+	{
+		ft_memcpy(pixel_delta, backup, sizeof(int) * 2);
+		return (0);
+	}
+	map->player_pos[0] += pixel_delta[0] / TEXTURE_WIDTH;
+	map->player_pos[1] += pixel_delta[1] / TEXTURE_WIDTH;
+	if (pixel_delta[0] / TEXTURE_WIDTH != 0 || pixel_delta[1] / TEXTURE_WIDTH != 0)
+		step = 1;
+	pixel_delta[0] %= TEXTURE_WIDTH;
+	pixel_delta[1] %= TEXTURE_WIDTH;
+	move_sprites(player, direction);
+	return (step);
+}
+
 
 void	move_player(mlx_t *mlx, t_entity *player, t_map *map)
 {
-	int	direction;
+	int					direction;
+	static unsigned int	steps;
 
 	direction = get_steering_key(mlx);
-	if (direction != UP && direction != DOWN)
-		update_variation(player, direction, player->current_variation, player->current_frame);
-	update_map(map, direction);
-	// check_movability()
-	move_sprites(player, direction);
-	// update steps
-
+	update_motion(player, direction, player->current_variation, player->current_frame);
+	steps += update_player_pos(direction, map, player);
+	printf("steps %i\n", steps);
+	// ft_memcpy(backup1, pixel_delta, sizeof(int) * 2);
+	// update_pixel_delta(direction, pixel_delta);
+	// steps += update_player_pos(direction, map, player);
+	// // if (map->map_2d[map->player_pos[0]][map->player_pos[1]] == ITEM)
+	// // {
+	// //
+	// // }
+	// // else if (map->map_2d[map->player_pos[0]][map->player_pos[1]] == ENEMY)
+	// // {
+	// //
+	// // }
+	// //
 }
