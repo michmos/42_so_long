@@ -115,9 +115,13 @@ void	my_loop_hook(void *param);
 // display_map.c -------------------------------------------------------------//
 int	display_map(t_game *game);
 
-// move_player.c
+// move_player.c -------------------------------------------------------------//
 void	move_player(mlx_t *mlx, t_entity *player, t_map *map);
 
 // disable_item.c ------------------------------------------------------------//
 void	disable_item(t_entity *item, t_map *map);
+
+// update_animations.c -------------------------------------------------------//
+void	update_animations(t_game *game);
+
 #endif
