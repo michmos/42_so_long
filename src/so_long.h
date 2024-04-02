@@ -118,4 +118,6 @@ int	display_map(t_game *game);
 // move_player.c
 void	move_player(mlx_t *mlx, t_entity *player, t_map *map);
 
+// disable_item.c ------------------------------------------------------------//
+void	disable_item(t_entity *item, t_map *map);
 #endif

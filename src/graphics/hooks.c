@@ -2,43 +2,14 @@
 #include "../so_long.h"
 #include <stdio.h>
 
-static void	update_animation(t_entity *entity, double mlx_delta_time)
+static char	get_entity(char **map, t_vector *position)
 {
-	int	var;
-	int	old_frame;
-	int	new_frame;
+	int	y;
+	int	x;
 
-	entity->delta_time += mlx_delta_time;
-	if (entity->delta_time * entity->fps < 1)
-	{
-		return;
-	}
-	entity->delta_time = 0;
-
-	old_frame = entity->current_frame;
-	new_frame = circular_increment(entity->current_frame, entity->num_frames - 1);
-	var = 0;
-	if (entity->type == PLAYER)
-		var = entity->current_variation;
-	while (var < entity->num_variations)
-	{
-		entity->sprites[var][old_frame]->enabled = false;
-		entity->sprites[var][new_frame]->enabled = true;
-		if (entity->type == PLAYER)
-			break ;
-		var++;
-	}
-	entity->current_frame = new_frame;
-}
-
-static void	update_animations(t_game *game)
-{
-	update_animation(&game->entities.space,  game->mlx->delta_time);
-	update_animation(&game->entities.wall,  game->mlx->delta_time);
-	update_animation(&game->entities.player,  game->mlx->delta_time);
-	update_animation(&game->entities.exit,  game->mlx->delta_time);
-	update_animation(&game->entities.item,  game->mlx->delta_time);
-	update_animation(&game->entities.enemy,  game->mlx->delta_time);
+	y = (int) round(position->y);
+	x = (int) round(position->x);
+	return (map[y][x]);
 }
 
 void	my_loop_hook(void *param)
@@ -47,6 +18,10 @@ void	my_loop_hook(void *param)
 
 	game = (t_game *) param;
 	move_player(game->mlx, &game->entities.player, &game->map);
+	if (get_entity(game->map.map_2d, &game->map.player_pos) == ITEM)
+		disable_item(&game->entities.item, &game->map);
+	else if (get_entity(game->map.map_2d, &game->map.player_pos) == ENEMY)
+		;
 	update_animations(game);
 }
 
