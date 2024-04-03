@@ -19,7 +19,7 @@ SRCS		:= \
 			   utils/utils.c utils/utils2.c utils/utils_free.c \
 			   graphics/load_images.c graphics/sprite.c graphics/hooks.c graphics/display_map.c \
 			   graphics/move_player.c graphics/update_animations.c graphics/disable_items.c \
-			   graphics/move_enemies.c
+			   graphics/move_enemies.c graphics/end_screens.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 OBJ_DIR		:= .build

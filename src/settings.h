@@ -4,6 +4,9 @@
 // widht in pixel for all textures
 # define TEXTURE_WIDTH 128
 
+# define FAILURE_MESSAGE "You caught a fish. Try to collect all the plastic without interfering into animal wildlife. Press <ESC> to exit"
+# define SUCCESS_MESSAGE "CONGRATS!!! You collected all the plastic. Thanks for saving the planet. Press <ESC> to exit"
+
 // FPS of the sprites
 # define SPACE_FPS 4
 # define WALL_FPS 4

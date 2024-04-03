@@ -12,6 +12,8 @@
 # include <fcntl.h>
 # include <math.h>
 
+# define CHAR_PIXEL_SIZE 10
+
 enum e_entity
 {
 	SPACE = '0',
@@ -128,5 +130,8 @@ void	update_animations(t_game *game);
 
 // move_enemies.c ------------------------------------------------------------//
 void	move_enemies(mlx_t *mlx, t_entity *enemy, t_map *map);
+
+// end_screens.c -------------------------------------------------------------//
+void	display_screen(t_game *game, int color, char *message);
 
 #endif
