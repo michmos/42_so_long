@@ -45,9 +45,9 @@ void	free_2d_array(void **arr);
 * returned on failure
 *
 * @param map The map to copy
-* @param size The size of the map (excluding the terminating NULL pointer)
+* @param size The height of the map
 */
-char	**dup_map(char **map, size_t	size);
+char	**dup_map(char **map, size_t size);
 
 /*
 * This function returns the rgba value given values for the 4 color channels
