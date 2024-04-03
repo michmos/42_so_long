@@ -126,4 +126,7 @@ void	disable_item(t_entity *item, t_map *map);
 // update_animations.c -------------------------------------------------------//
 void	update_animations(t_game *game);
 
+// move_enemies.c ------------------------------------------------------------//
+void	move_enemies(mlx_t *mlx, t_entity *enemy, t_map *map);
+
 #endif

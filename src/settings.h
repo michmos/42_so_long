@@ -10,10 +10,14 @@
 # define PLAYER_FPS 15
 # define EXIT_FPS 4
 # define ITEM_FPS 2
-# define ENEMY_FPS 4
+# define ENEMY_FPS 10
 
 // how fast does the player move in pixel
 # define PLAYER_SPEED 4
+
+// how much time is between the enemy moves
+// in seconds (the smaller the harder)
+# define ENEMY_SPEED 4
 
 // paths to the entity textures
 # define SPACE_TEXTURE "textures/space/water.png"
