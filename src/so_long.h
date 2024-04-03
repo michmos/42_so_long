@@ -45,6 +45,8 @@ typedef struct s_map
 	int			steps_min;
 	t_vector	player_pos;
 	t_vector	exit_pos;
+	size_t		num_items;
+	size_t		num_enemies;
 
 } t_map;
 
