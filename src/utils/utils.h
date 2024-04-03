@@ -109,4 +109,12 @@ int has_entity(char **map, int entity);
 
 int	circular_increment(int index, int max);
 
+/*
+* This functions returns the appearances of value in the string src
+*
+* @param src The source to search for value
+* @param value The value to look for inside of source
+*/
+int	count(char *src, char value);
+
 #endif

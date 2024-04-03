@@ -24,3 +24,20 @@ int	circular_increment(int index, int max)
 		return (0);
 	}
 }
+
+int	count(char *src, char value)
+{
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	count = 0;
+	while (src[i])
+	{
+		if (src[i] == value)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
