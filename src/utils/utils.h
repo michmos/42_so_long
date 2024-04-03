@@ -106,7 +106,6 @@ int has_entity(char **map, int entity);
 * @param index The current index
 * @param max The max value for the index
 */
-
 int	circular_increment(int index, int max);
 
 /*
@@ -117,4 +116,9 @@ int	circular_increment(int index, int max);
 */
 int	count(char *src, char value);
 
+/*
+* This functions returns a random int value inbetween min and max
+* including the borders
+*/
+int random_value(int min, int max); // TODO: delete for mandatory part later
 #endif

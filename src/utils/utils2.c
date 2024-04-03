@@ -41,3 +41,12 @@ int	count(char *src, char value)
 	return (count);
 }
 
+int random_value(int min, int max)
+{
+	int	value;
+	int	range;
+
+	range = max - min;
+	value = rand() % (range + 1);
+	return (value + min);
+}
