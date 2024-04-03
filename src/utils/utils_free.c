@@ -22,6 +22,7 @@ void	delete_sprites(mlx_t *mlx, mlx_image_t ***sprites)
 
 	if (!sprites || !*sprites)
 		return ;
+	i = 0;
 	while (sprites[i])
 	{
 		delete_frames(mlx, sprites[i]);
