@@ -118,7 +118,7 @@ static int	is_wall(char **map_2d, t_vector *new_pos)
 	return (0);
 }
 
-int	update_pos(t_map *map, int direction)
+static int	update_pos(t_map *map, int direction)
 {
 	static unsigned int	steps;
 	t_vector			new_pos;
