@@ -85,11 +85,19 @@ typedef struct s_entity_list
 	t_entity enemy;
 } t_entity_list;
 
+typedef struct s_full_screens
+{
+	mlx_image_t *background;
+	mlx_image_t *message;
+
+} t_full_screens;
+
 typedef struct	s_game
 {
 	t_map 			map;
 	mlx_t			*mlx;
 	t_entity_list	entities;
+	t_full_screens	end_imgs;
 } t_game;
 
 // main.c ---------------------------------------------------------------------//
