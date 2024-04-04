@@ -7,43 +7,25 @@
 // TODO: Randomize loading of variations
 // TODO: Check other settings
 // TODO: Check for unvalid chars
+// TODO: Valid map check with enemies
+// TODO: Enemy should disappear when boat goes there
+
+
+
+
+// TODO: continue: something with copying does not seem to work
+// TODO: set all pointers in structs at beginning to NULL. Then freeing easy
 
 int	main(int argc, char *argv[])
 {
-	t_game			game;
-	t_img_list		imgs;
+	t_game	game;
 
 	if (argc != 2)
 	{
-		err_exit("unvalid arguments");
+		err_exit("you need to provide the map path as an argument");
 	}
-	init_map(&game.map, argv[1]);
-	if (error_check(&game.map))
-	{
-		free_2d_array((void **) game.map.map_2d);
-		exit(EXIT_FAILURE);
-	}
-	game.mlx = mlx_init(TEXTURE_WIDTH * game.map.width, TEXTURE_WIDTH * game.map.height, "so_long", true);
-	if (!game.mlx)
-	{
-		free_2d_array((void **) game.map.map_2d);
-		exit(EXIT_FAILURE);
-	}
-	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	if (load_images(game.mlx, &imgs) == -1)
-	{
-		free_2d_array((void **) game.map.map_2d);
-		exit(EXIT_FAILURE);
-	}
-	if (init_entities(game.mlx, &game.entities, &imgs) == -1)
-	{
-		free_entities(game.mlx, &game.entities);
-		free_2d_array((void **) game.map.map_2d);
-		exit(EXIT_FAILURE);
-	}
-	display_map(&game);
+	init_struct(&game, argv[1]);
 	mlx_loop_hook(game.mlx, my_loop_hook, (void *) &game);
 	mlx_loop(game.mlx);
-	mlx_terminate(game.mlx);
-	return (0);
+	end_game(&game, EXIT_FAILURE);
 }

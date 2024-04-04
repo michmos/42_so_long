@@ -50,3 +50,23 @@ int random_value(int min, int max)
 	value = rand() % (range + 1);
 	return (value + min);
 }
+
+void	free_2d_array(void **arr)
+{
+	int y;
+
+	y = 0;
+	if (!arr)
+		return ;
+	if (!arr[0])
+	{
+		free(arr);
+		return ;
+	}
+	while (arr[y])
+	{
+		free(arr[y]);
+		y++;
+	}
+	free(arr);
+}

@@ -13,13 +13,16 @@ MLX			:= MLX42/build/libmlx42.a
 HEADER_FILE	:= so_long.h
 
 SRC_DIR		:= src
-SRCS		:= \
-			   main.c init_entities.c free.c \
-			   parsing/map_init.c parsing/error_check.c parsing/error_check2.c \
-			   utils/utils.c utils/utils2.c utils/utils_free.c \
-			   graphics/load_images.c graphics/sprite.c graphics/hooks.c graphics/display_map.c \
-			   graphics/move_player.c graphics/update_animations.c graphics/disable_items.c \
-			   graphics/move_enemies.c graphics/end_screens.c
+SRCS		:= main.c free.c map_ops.c \
+			   $(addprefix init_struct/, \
+			   		init_struct.c init_entities.c init_map.c \
+			   		error_check.c error_check2.c) \
+			   $(addprefix utils/, \
+			   		utils.c utils2.c) \
+			   $(addprefix hook/, \
+			   		load_images.c sprite.c hooks.c display_map.c \
+					move_player.c update_animations.c disable_items.c \
+					move_enemies.c end_screens.c)
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 OBJ_DIR		:= .build

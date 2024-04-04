@@ -91,6 +91,22 @@ typedef struct	s_game
 	t_entity_list	entities;
 } t_game;
 
+// main.c ---------------------------------------------------------------------//
+int	main(int argc, char **argv);
+
+// free.c --------------------------------------------------------------------//
+void	end_game(t_game *game, int exit_code);
+
+// map_ops.c -----------------------------------------------------------------//
+int		copy_t_map(t_map *map_dest, t_map *map_src);
+void	restore_map(t_map *map, t_map *backup);
+char	get_entity(char **map, t_vector *position);
+
+
+
+// ------------------------- INIT_STRUCT/ ------------------------------------//
+// init_struct.c -------------------------------------------------------------//
+void	init_struct(t_game *game, char *map_path);
 
 // map_init.c ----------------------------------------------------------------//
 void	init_map(t_map *map, const char *map_path);
@@ -110,9 +126,9 @@ mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, int num
 // init_entities.c -----------------------------------------------------------//
 int	init_entities(mlx_t *mlx, t_entity_list *entities, t_img_list* imgs);
 
-// free.c --------------------------------------------------------------------//
-void	free_entities(mlx_t *mlx, t_entity_list *entities);
 
+
+// ---------------------------- HOOK/ ----------------------------------------//
 // hooks.c -------------------------------------------------------------------//
 void	my_loop_hook(void *param);
 

@@ -1,13 +1,16 @@
 
 #include "so_long.h"
 
-void	free_entities(mlx_t *mlx, t_entity_list *entities)
+void	end_game(t_game *game, int exit_code) // TODO: anything else missing
 {
-	delete_sprites(mlx, entities->space.sprites);
-	delete_sprites(mlx, entities->wall.sprites);
-	delete_sprites(mlx, entities->player.sprites);
-	delete_sprites(mlx, entities->exit.sprites);
-	delete_sprites(mlx, entities->item.sprites);
-	delete_sprites(mlx, entities->enemy.sprites);
+	free(game->map.map_1d);
+	free_2d_array((void **) game->map.map_2d);
+	free_2d_array((void **) game->entities.space.sprites);
+	free_2d_array((void **) game->entities.wall.sprites);
+	free_2d_array((void **) game->entities.player.sprites);
+	free_2d_array((void **) game->entities.exit.sprites);
+	free_2d_array((void **) game->entities.item.sprites);
+	free_2d_array((void **) game->entities.enemy.sprites);
+	mlx_terminate(game->mlx);
+	exit(exit_code);
 }
-

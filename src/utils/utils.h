@@ -33,14 +33,6 @@ void	print_err(const char *err_message);
 void	find_item_pos(char **map, char item, double *y_pos, double *x_pos);
 
 /*
-* This functions frees an array of pointers. Therefore the array needs to be
-* terminated with a pointer to NULL
-*
-* @param arr The array to be freed
-*/
-void	free_2d_array(void **arr);
-
-/*
 * This function creates a copy of a 2d map and returns it on success. NULL is
 * returned on failure
 *
@@ -121,4 +113,9 @@ int	count(char *src, char value);
 * including the borders
 */
 int random_value(int min, int max); // TODO: delete for mandatory part later
+
+/*
+* This functions frees a two dimensional array where the last pointer is NULL.
+*/
+void	free_2d_array(void **arr);
 #endif
