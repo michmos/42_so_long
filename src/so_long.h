@@ -50,6 +50,7 @@ typedef struct s_map
 	size_t		num_items;
 	size_t		num_enemies;
 
+	mlx_image_t		*step_count;
 } t_map;
 
 typedef struct s_img_list

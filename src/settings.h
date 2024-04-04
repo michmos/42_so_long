@@ -4,6 +4,10 @@
 // widht in pixel for all textures
 # define TEXTURE_WIDTH 128
 
+// step count position
+# define STEP_COUNT_POS_Y 10
+# define STEP_COUNT_POS_X 10
+
 # define FAILURE_MESSAGE "You caught a fish. Try to collect all the plastic without interfering into animal wildlife. Press <ESC> to exit"
 # define SUCCESS_MESSAGE "CONGRATS!!! You collected all the plastic. Thanks for saving the planet. Press <ESC> to exit"
 
