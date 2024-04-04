@@ -1,59 +1,61 @@
 
 #include "../so_long.h"
 
-static int	fill_window(t_game *game, int color)
+static mlx_image_t	*get_img(mlx_t *mlx, int width, int height, int color)
 {
-	int	y;
-	int	x;
-	int	width;
-	int	height;
-	mlx_image_t *background;
+	int			y;
+	int			x;
+	mlx_image_t	*img;
 
-
-	width = TEXTURE_WIDTH * game->map.width;
-	height = TEXTURE_WIDTH * game->map.height;
-	background = mlx_new_image(game->mlx, width, height);
-	if (!background)
-		return (-1);
+	img = mlx_new_image(mlx, width, height);
+	if (!img)
+		return (NULL);
 	y = 0;
 	while (y < height)
 	{
 		x = 0;
 		while (x < width)
 		{
-			mlx_put_pixel(background, x, y, color);
+			mlx_put_pixel((img), x, y, color);
 			x++;
 		}
 		y++;
 	}
-	mlx_image_to_window(game->mlx, background, 0, 0);
-	return (0);
+	return (img);
 }
 
-static int	print_central_message(t_game *game, char *message)
+static mlx_image_t	*print_central_message(t_game *game, char *message)
 {
-	size_t	message_width;
-	int		start_x;
-	int		start_y;
+	size_t		message_width;
+	int			start_x;
+	int			start_y;
+	mlx_image_t *img;
 
 	start_y = game->map.height * TEXTURE_WIDTH / 2;
 	message_width = ft_strlen(message) * CHAR_PIXEL_SIZE;
 	start_x = game->map.width * TEXTURE_WIDTH / 2 - message_width / 2;
 	if (start_x < 0)
 		start_x = 0;
-	if (!mlx_put_string(game->mlx, message, start_x, start_y))
-		return (-1);
-	return (0);
+	img = mlx_put_string(game->mlx, message, start_x, start_y);
+	return (img);
 }
 
 
 void	display_screen(t_game *game, int color, char *message)
 {
-	if (fill_window(game, color) == -1)
+	int	width;
+	int	height;
+
+	width = TEXTURE_WIDTH * game->map.width;
+	height = TEXTURE_WIDTH * game->map.height;
+	game->end_imgs.background = get_img(game->mlx, width, height, color);
+	if (!game->end_imgs.background)
 		;// TODO: protect
+	mlx_image_to_window(game->mlx, game->end_imgs.background, 0, 0);
 	if (message)
 	{
-		if (print_central_message(game, message) == -1)
+		game->end_imgs.message = print_central_message(game, message);
+		if (!game->end_imgs.message)
 			;// TODO: protect
 	}
 }
