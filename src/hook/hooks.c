@@ -1,5 +1,6 @@
 
 #include "../so_long.h"
+#include <stdio.h>
 
 void	my_loop_hook(void *param)
 {
@@ -31,8 +32,7 @@ void	my_loop_hook(void *param)
 		move_enemies(game->mlx, &game->entities.enemy, &game->map);
 		if (get_entity(game->map.map_2d, &game->map.player_pos) == ITEM)
 		{
-			disable_item(&game->entities.item, &game->map);
-			game->map.num_items--;
+			collect_item(&game->entities.item, &game->map, game->backup_map.map_2d);
 		}
 		else if (get_entity(game->map.map_2d, &game->map.player_pos) == ENEMY)
 		{

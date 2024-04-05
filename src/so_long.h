@@ -169,7 +169,7 @@ int	display_game(t_game *game);
 int	move_player(mlx_t *mlx, t_entity *player, t_map *map);
 
 // disable_item.c ------------------------------------------------------------//
-void	disable_item(t_entity *item, t_map *map);
+void	collect_item(t_entity *item, t_map *map, char **og_map);
 
 // update_animations.c -------------------------------------------------------//
 void	update_animations(t_game *game);
