@@ -10,7 +10,7 @@ static void	update_map(t_vector old_pos, t_vector new_pos, char **map)
 	map[(int) new_pos.y][(int) new_pos.x] = ENEMY;
 }
 
-static void	move_sprites(int i, t_entity *enemy, t_vector *new_pos)
+void	move_enemy_i_sprites(int i, t_entity *enemy, t_vector *new_pos)
 {
 	int	variation;
 	int	instance;
@@ -61,7 +61,7 @@ static t_vector	update_pos(t_vector *pos, char **map)
 	return (*pos);
 }
 
-static t_vector	get_enemy_i_pos(char **map, int index)
+t_vector	get_enemy_i_pos(char **map, int index)
 {
 	int count;
 	int y;
@@ -108,9 +108,10 @@ void	move_enemies(mlx_t *mlx, t_entity *enemy, t_map *map)
 		pos = get_enemy_i_pos(map->map_2d, i);
 		new_pos = update_pos(&pos, map->map_2d);
 		update_map(pos, new_pos, new_map);
-		move_sprites(i, enemy, &new_pos);
+		move_enemy_i_sprites(i, enemy, &new_pos);
 		i++;
 	}
 	free_2d_array((void **)map->map_2d); // TODO: double check
 	map->map_2d = new_map;
 }
+
