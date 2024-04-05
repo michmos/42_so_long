@@ -40,18 +40,23 @@ typedef struct s_vector
 
 typedef struct s_map
 {
+	char		*map_1d;
+	char		**map_2d;
 	int			height;
 	int			width;
-	char		**map_2d;
-	char		*map_1d;
-	int			steps_min;
 	t_vector	player_pos;
 	t_vector	exit_pos;
 	size_t		num_items;
 	size_t		num_enemies;
-
-	mlx_image_t		*step_count;
+	int			steps;
+	mlx_image_t	*steps_img;
 } t_map;
+
+typedef struct s_backup
+{
+	char *map_1d;
+	char **map_2d;
+} t_backup;
 
 typedef struct s_img_list
 {
@@ -85,19 +90,26 @@ typedef struct s_entity_list
 	t_entity enemy;
 } t_entity_list;
 
-typedef struct s_full_screens
+typedef struct s_menu
 {
 	mlx_image_t *background;
 	mlx_image_t *message;
+} t_menu;
 
-} t_full_screens;
+typedef struct s_menu_list
+{
+	t_menu	failure;
+	t_menu	success;
+
+} t_menu_list;
 
 typedef struct	s_game
 {
-	t_map 			map;
 	mlx_t			*mlx;
+	t_map 			map;
+	t_map 			backup_map;
 	t_entity_list	entities;
-	t_full_screens	end_imgs;
+	t_menu_list		menus;
 } t_game;
 
 // main.c ---------------------------------------------------------------------//
@@ -108,9 +120,7 @@ void	end_game(t_game *game, int exit_code);
 
 // map_ops.c -----------------------------------------------------------------//
 int		copy_t_map(t_map *map_dest, t_map *map_src);
-void	restore_map(t_map *map, t_map *backup);
 char	get_entity(char **map, t_vector *position);
-
 
 
 // ------------------------- INIT_STRUCT/ ------------------------------------//
@@ -135,17 +145,28 @@ mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, int num
 // init_entities.c -----------------------------------------------------------//
 int	init_entities(mlx_t *mlx, t_entity_list *entities, t_img_list* imgs);
 
+// menus.c -------------------------------------------------------------------//
+int	display_menus(mlx_t *mlx, t_menu_list *menus, t_map *map);
 
+
+// ------------------------ display_game/ -------------------------------------//
+// display_menus.c -----------------------------------------------------------//
+void	enable_menu(t_menu *menu);
+void	disable_menu(t_menu *menu);
+int	load_menus(mlx_t *mlx, t_menu_list *menus, t_map *map);
+
+// display_menus.c -----------------------------------------------------------//
+int	display_game(t_game *game);
 
 // ---------------------------- HOOK/ ----------------------------------------//
 // hooks.c -------------------------------------------------------------------//
 void	my_loop_hook(void *param);
 
 // display_map.c -------------------------------------------------------------//
-int	display_map(t_game *game);
+int	display_game(t_game *game);
 
 // move_player.c -------------------------------------------------------------//
-void	move_player(mlx_t *mlx, t_entity *player, t_map *map);
+int	move_player(mlx_t *mlx, t_entity *player, t_map *map);
 
 // disable_item.c ------------------------------------------------------------//
 void	disable_item(t_entity *item, t_map *map);
@@ -154,9 +175,17 @@ void	disable_item(t_entity *item, t_map *map);
 void	update_animations(t_game *game);
 
 // move_enemies.c ------------------------------------------------------------//
-void	move_enemies(mlx_t *mlx, t_entity *enemy, t_map *map);
+void		move_enemies(mlx_t *mlx, t_entity *enemy, t_map *map);
+void		move_enemy_i_sprites(int i, t_entity *enemy, t_vector *new_pos);
+t_vector	get_enemy_i_pos(char **map, int index);
 
 // end_screens.c -------------------------------------------------------------//
-void	display_screen(t_game *game, int color, char *message);
+void	display_message(t_game *game, int color, char *message);
+
+// reset_game.c --------------------------------------------------------------//
+void	reset_game(t_game *game);
+
+// step_count.c --------------------------------------------------------------//
+int	print_step_count(mlx_t *mlx, mlx_image_t **step_count, int steps);
 
 #endif
