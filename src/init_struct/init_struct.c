@@ -16,8 +16,6 @@ static void	init_pointers(t_game *game, int value)
 void	init_struct(t_game *game, char *map_path)
 {
 	t_img_list	imgs;
-	int			window_width;
-	int			window_height;
 
 	init_pointers(game, 0);
 	init_map(&game->map, map_path);
@@ -29,14 +27,11 @@ void	init_struct(t_game *game, char *map_path)
 	{
 		end_game(game, EXIT_FAILURE);
 	}
-	window_height = game->map.height * TEXTURE_WIDTH;
-	window_width = game->map.width * TEXTURE_WIDTH;
-	game->mlx = mlx_init(window_width, window_height, "so_long", true);
+	game->mlx = mlx_init(game->map.width * TEXTURE_WIDTH, game->map.height * TEXTURE_WIDTH, "so_long", true);
 	if (!game->mlx)
 	{
 		end_game(game, EXIT_FAILURE);
 	}
-	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	if (load_images(game->mlx, &imgs) == -1)
 	{
 		end_game(game, EXIT_FAILURE);
@@ -45,4 +40,9 @@ void	init_struct(t_game *game, char *map_path)
 	{
 		end_game(game, EXIT_FAILURE);
 	}
+	if (load_menus(game->mlx, &game->menus, &game->map) == -1)
+	{
+		end_game(game, EXIT_FAILURE);
+	}
+	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 }
