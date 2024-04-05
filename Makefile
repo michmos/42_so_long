@@ -16,13 +16,15 @@ SRC_DIR		:= src
 SRCS		:= main.c free.c map_ops.c \
 			   $(addprefix init_struct/, \
 			   		init_struct.c init_entities.c init_map.c \
-			   		error_check.c error_check2.c) \
-			   $(addprefix utils/, \
-			   		utils.c utils2.c) \
+			   		error_check.c error_check2.c load_menus.c) \
+			   $(addprefix display_game/, \
+			   		display_menus.c display_game.c) \
 			   $(addprefix hook/, \
-			   		load_images.c sprite.c hooks.c display_map.c \
+			   		load_images.c sprite.c hooks.c \
 					move_player.c update_animations.c disable_items.c \
-					move_enemies.c end_screens.c)
+					move_enemies.c reset_game.c step_count.c) \
+			   $(addprefix utils/, \
+			   		utils.c utils2.c)
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 OBJ_DIR		:= .build
