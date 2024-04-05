@@ -2,30 +2,6 @@
 #include "../so_long.h"
 #include <stdio.h>
 
-static void	print_step_count(mlx_t *mlx, t_map *map, int steps)
-{
-	mlx_image_t	*steps_img;
-	static int	count;
-	char 		*temp;
-
-	temp = ft_itoa(steps); // TODO: protect
-	if (!temp)
-		;
-	if (count == 0)
-	{
-		if(!mlx_put_string(mlx, "steps: ", STEP_COUNT_POS_X, STEP_COUNT_POS_Y))
-			; // TODO: protect. dont forget temp
-	}
-	else
-	{
-		mlx_delete_image(mlx, map->step_count);
-	}
-	map->step_count = mlx_put_string(mlx, temp, STEP_COUNT_POS_X + 80, STEP_COUNT_POS_Y);
-	free(temp);
-	if (!map->step_count)
-		; // TODO: protect
-	count++;
-}
 
 static void	move_sprites(t_entity *entity, enum e_direction direction)
 {
@@ -143,7 +119,7 @@ static int	is_wall(char **map_2d, t_vector *new_pos)
 	return (0);
 }
 
-static int	update_pos(t_map *map, int direction, unsigned int *steps)
+static int	update_pos(t_map *map, int direction)
 {
 	t_vector			new_pos;
 
@@ -161,24 +137,21 @@ static int	update_pos(t_map *map, int direction, unsigned int *steps)
 	if (is_wall(map->map_2d, &new_pos))
 		return (WALL);
 	if (round(new_pos.y) != round(map->player_pos.y) || round(new_pos.x) != round(map->player_pos.x))
-		*steps += 1;
+		map->steps += 1;
 	map->player_pos.x = new_pos.x;
 	map->player_pos.y = new_pos.y;
 	return (0);
 }
 
-void	move_player(mlx_t *mlx, t_entity *player, t_map *map)
+int	move_player(mlx_t *mlx, t_entity *player, t_map *map)
 {
-	int					direction;
-	static unsigned int	steps;
-	unsigned int		temp;
+	int	direction;
 
 	direction = get_steering_key(mlx);
 	update_motion(player, direction, player->current_variation, player->current_frame);
-	temp = steps;
-	if (update_pos(map, direction, &steps) == WALL)
-		return ;
-	move_sprites(player, direction);
-	if (temp != steps)
-		print_step_count(mlx, map, steps);
+	if (update_pos(map, direction) != WALL)
+	{
+		move_sprites(player, direction);
+	}
+	return (0);
 }
