@@ -44,8 +44,8 @@ mlx_image_t **split_into_frames(mlx_t *mlx, mlx_image_t *sprite_sheet, int row, 
 		frames[i] = dup_frame(mlx, sprite_sheet, i * TEXTURE_WIDTH, row * TEXTURE_WIDTH);
 		if (!frames[i])
 		{
-			delete_frames(mlx, frames);
-			return (NULL);
+			; // TODO: protect
+			return (frames);
 		}
 		i++;
 	}
@@ -70,7 +70,7 @@ mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, int num
 		sprites[i] = split_into_frames(mlx, sprite_sheet, i, num_frames);
 		if (!sprites[i])
 		{
-			delete_sprites(mlx, sprites);
+			; // TODO: protect
 			return (NULL);
 		}
 		i++;
