@@ -57,7 +57,7 @@ static int	load_textures(t_texture_list *textures)
 	return (0);
 }
 
-int load_images(mlx_t *mlx, t_img_list *imgs)
+int load_images(mlx_t *mlx, t_img_list *entity_imgs)
 {
 	t_texture_list textures;
 	
@@ -65,7 +65,7 @@ int load_images(mlx_t *mlx, t_img_list *imgs)
 	{
 		return (-1);
 	}
-	if (textures_to_img(mlx, &textures, imgs) == -1)
+	if (textures_to_img(mlx, &textures, entity_imgs) == -1)
 	{
 		return (-1);
 	}
