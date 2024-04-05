@@ -15,13 +15,6 @@ int	copy_t_map(t_map *map_dest, t_map *map_src)
 	return (0);
 }
 
-void	restore_map(t_map *map, t_map *backup)
-{
-	free(map->map_1d);
-	free_2d_array((void **) map->map_2d);
-	copy_t_map(map, backup);
-}
-
 char	get_entity(char **map, t_vector *position)
 {
 	int	y;

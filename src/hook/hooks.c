@@ -19,6 +19,11 @@ void	my_loop_hook(void *param)
 	static int	last_count;
 
 	game = (t_game *) param;
+	if ((freeze && mlx_is_key_down(game->mlx, MLX_KEY_SPACE))) // TODO: restart functionality
+	{
+		reset_game(game);
+		freeze = false;
+	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
 		end_game(game, EXIT_SUCCESS);
