@@ -9,12 +9,8 @@
 // TODO: Check for unvalid chars
 // TODO: Valid map check with enemies
 // TODO: Enemy should disappear when boat goes there
-
-
-
-
-// TODO: continue: something with copying does not seem to work
-// TODO: set all pointers in structs at beginning to NULL. Then freeing easy
+// TODO: protect all mlx calls
+// TODO: when item is collected, map should be updated so that enemy can actually go there
 
 int	main(int argc, char *argv[])
 {
@@ -25,6 +21,7 @@ int	main(int argc, char *argv[])
 		err_exit("you need to provide the map path as an argument");
 	}
 	init_struct(&game, argv[1]);
+	display_game(&game);
 	mlx_loop_hook(game.mlx, my_loop_hook, (void *) &game);
 	mlx_loop(game.mlx);
 	end_game(&game, EXIT_FAILURE);
