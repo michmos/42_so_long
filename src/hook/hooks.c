@@ -1,16 +1,5 @@
 
 #include "../so_long.h"
-#include <stdio.h>
-
-static char	get_entity(char **map, t_vector *position)
-{
-	int	y;
-	int	x;
-
-	y = (int) round(position->y);
-	x = (int) round(position->x);
-	return (map[y][x]);
-}
 
 void	my_loop_hook(void *param)
 {
@@ -30,11 +19,14 @@ void	my_loop_hook(void *param)
 	}
 	if (!freeze)
 	{
-		move_player(game->mlx, &game->entities.player, &game->map);
 		if (!game->map.steps_img || last_count != game->map.steps)
 		{
 			print_step_count(game->mlx, &game->map.steps_img, game->map.steps);
 			last_count = game->map.steps;
+		}
+		if (move_player(game->mlx, &game->entities.player, &game->map) == -1)
+		{
+			end_game(game, EXIT_FAILURE);
 		}
 		move_enemies(game->mlx, &game->entities.enemy, &game->map);
 		if (get_entity(game->map.map_2d, &game->map.player_pos) == ITEM)
@@ -44,13 +36,13 @@ void	my_loop_hook(void *param)
 		}
 		else if (get_entity(game->map.map_2d, &game->map.player_pos) == ENEMY)
 		{
-			display_screen(game, get_rgba(0xFF, 0, 0, 70), FAILURE_MESSAGE);
+			enable_menu(&game->menus.failure);
 			freeze = true;
 		}
 		else if (get_entity(game->map.map_2d, &game->map.player_pos) == EXIT
 			&& game->map.num_items == 0)
 		{
-			display_screen(game, get_rgba(0, 0xFF, 0, 70), SUCCESS_MESSAGE);
+			enable_menu(&game->menus.success);
 			freeze = true;
 		}
 	}
