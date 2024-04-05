@@ -16,6 +16,7 @@ void	my_loop_hook(void *param)
 {
 	t_game 		*game;
 	static bool	freeze;
+	static int	last_count;
 
 	game = (t_game *) param;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
@@ -28,6 +29,7 @@ void	my_loop_hook(void *param)
 		if (!game->map.steps_img || last_count != game->map.steps)
 		{
 			print_step_count(game->mlx, &game->map.steps_img, game->map.steps);
+			last_count = game->map.steps;
 		}
 		move_enemies(game->mlx, &game->entities.enemy, &game->map);
 		if (get_entity(game->map.map_2d, &game->map.player_pos) == ITEM)
