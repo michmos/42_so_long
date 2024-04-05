@@ -77,5 +77,6 @@ void	reset_game(t_game *game)
 	reset_enemies(&game->entities.enemy, &game->map);
 	reset_items(&game->entities.item);
 	reset_player(&game->entities.player, game->map.player_pos);
+	disable_menu(&game->menus.success);
 	disable_menu(&game->menus.failure);
 }
