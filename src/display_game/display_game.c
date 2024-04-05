@@ -109,7 +109,7 @@ static int	display_entities(mlx_t *mlx, t_entity_list *entities, char **map)
 	return (0);
 }
 
-int	display_map(t_game *game)
+int	display_game(t_game *game)
 {
 	display_background(game);
 	if (display_entities(game->mlx, &game->entities, game->map.map_2d) == -1)
