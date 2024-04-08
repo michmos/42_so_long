@@ -166,7 +166,7 @@ void	my_loop_hook(void *param);
 int	display_game(t_game *game);
 
 // move_player.c -------------------------------------------------------------//
-int	move_player(mlx_t *mlx, t_entity *player, t_map *map);
+void	move_player(mlx_t *mlx, t_entity *player, t_map *map);
 
 // disable_item.c ------------------------------------------------------------//
 void	collect_item(t_entity *item, t_map *map, char **og_map);

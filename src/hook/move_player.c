@@ -143,7 +143,7 @@ static int	update_pos(t_map *map, int direction)
 	return (0);
 }
 
-int	move_player(mlx_t *mlx, t_entity *player, t_map *map)
+void	move_player(mlx_t *mlx, t_entity *player, t_map *map)
 {
 	int	direction;
 
@@ -153,5 +153,4 @@ int	move_player(mlx_t *mlx, t_entity *player, t_map *map)
 	{
 		move_sprites(player, direction);
 	}
-	return (0);
 }

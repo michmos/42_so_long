@@ -25,11 +25,7 @@ void	my_loop_hook(void *param)
 			print_step_count(game->mlx, &game->map.steps_img, game->map.steps);
 			last_count = game->map.steps;
 		}
-		if (move_player(game->mlx, &game->entities.player, &game->map) == -1)
-		{
-			end_game(game, EXIT_FAILURE);
-		}
-		move_enemies(game->mlx, &game->entities.enemy, &game->map);
+		move_player(game->mlx, &game->entities.player, &game->map);
 		if (get_entity(game->map.map_2d, &game->map.player_pos) == ITEM)
 		{
 			collect_item(&game->entities.item, &game->map, game->backup_map.map_2d);
