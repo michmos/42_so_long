@@ -11,6 +11,7 @@ static void	init_pointers(t_game *game, int value)
 	ft_memset(&game->entities.exit, value, sizeof(t_entity));
 	ft_memset(&game->entities.item, value, sizeof(t_entity));
 	ft_memset(&game->entities.enemy, value, sizeof(t_entity));
+	game->mlx = NULL;
 }
 
 void	init_struct(t_game *game, char *map_path)

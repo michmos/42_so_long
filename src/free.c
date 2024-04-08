@@ -11,6 +11,7 @@ void	end_game(t_game *game, int exit_code) // TODO: anything else missing
 	free_2d_array((void **) game->entities.exit.sprites);
 	free_2d_array((void **) game->entities.item.sprites);
 	free_2d_array((void **) game->entities.enemy.sprites);
-	mlx_terminate(game->mlx);
+	if (game->mlx)
+		mlx_terminate(game->mlx);
 	exit(exit_code);
 }
