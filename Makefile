@@ -21,7 +21,7 @@ SRCS		:= main.c free.c map_ops.c \
 			   		display_menus.c display_game.c) \
 			   $(addprefix hook/, \
 			   		load_images.c sprite.c hooks.c \
-					move_player.c update_animations.c disable_items.c \
+					move_player.c update_animations.c collect_item.c \
 					move_enemies.c reset_game.c step_count.c) \
 			   $(addprefix utils/, \
 			   		utils.c utils2.c)
