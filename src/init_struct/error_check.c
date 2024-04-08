@@ -113,9 +113,25 @@ static int	has_inner_empty_lines(char *map)
 	return (true);
 }
 
+static int	has_unvalid_chars(char *map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		if (!ft_strchr("01PEIM\n", map[i]))
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 int	error_check(t_map *map)
 {
-	if (has_inner_empty_lines(map->map_1d))
+	if (has_unvalid_chars(map->map_1d))
+		print_err("Map contains unvalid characters");
+	else if (has_inner_empty_lines(map->map_1d))
 		print_err("Map should not contain inner empty lines");
 	else if (!has_e_c_p(map))
 		print_err("Map must contain the characters E, C and P");
