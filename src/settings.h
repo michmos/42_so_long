@@ -15,8 +15,8 @@
 # define SPACE_FPS 4
 # define WALL_FPS 4
 # define PLAYER_FPS 15
-# define EXIT_FPS 4
-# define ITEM_FPS 2
+# define EXIT_FPS 10
+# define ITEM_FPS 5
 # define ENEMY_FPS 10
 
 // how fast does the player move in pixel
@@ -30,8 +30,8 @@
 # define SPACE_TEXTURE "textures/space/water.png"
 # define WALL_TEXTURE "textures/walls/rocks.png"
 # define PLAYER_TEXTURE "textures/player/boat.png"
-# define EXIT_TEXTURE "textures/exit/exit.png"
-# define ITEM_TEXTURE "textures/items/trash.png"
+# define EXIT_TEXTURE "textures/exit/flag5.png"
+# define ITEM_TEXTURE "textures/items/trash6.png"
 # define ENEMY_TEXTURE "textures/enemies/fish.png"
 
 // how far can the player overlap with a wall frame
