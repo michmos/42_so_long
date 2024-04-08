@@ -3,14 +3,9 @@
 #include "utils/utils.h"
 
 // TODO: DOWNLOAD CORRECT MLX VERSION FROM GITHUB INSTEAD OF PUSHING IT
-// TODO: UPDATE FREEING PROCEDURE
-// TODO: Randomize loading of variations
-// TODO: Check other settings
-// TODO: Check for unvalid chars
-// TODO: Valid map check with enemies
-// TODO: Enemy should disappear when boat goes there
+// TODO: check freeing procedure
 // TODO: protect all mlx calls
-// TODO: when item is collected, map should be updated so that enemy can actually go there
+// TODO: change flag texture a bit
 
 int	main(int argc, char *argv[])
 {
