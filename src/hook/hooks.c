@@ -9,7 +9,7 @@ void	my_loop_hook(void *param)
 	static int	last_count;
 
 	game = (t_game *) param;
-	if ((freeze && mlx_is_key_down(game->mlx, MLX_KEY_SPACE))) // TODO: restart functionality
+	if ((freeze && mlx_is_key_down(game->mlx, MLX_KEY_SPACE)))
 	{
 		reset_game(game);
 		freeze = false;
@@ -41,6 +41,7 @@ void	my_loop_hook(void *param)
 			enable_menu(&game->menus.success);
 			freeze = true;
 		}
+		move_enemies(game->mlx, &game->entities.enemy, &game->map);
 	}
 	update_animations(game);
 }
