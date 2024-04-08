@@ -120,7 +120,7 @@ static int	has_unvalid_chars(char *map)
 	i = 0;
 	while (map[i])
 	{
-		if (!ft_strchr("01PEIM\n", map[i]))
+		if (!ft_strchr("01PECM\n", map[i]))
 			return (true);
 		i++;
 	}
