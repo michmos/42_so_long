@@ -35,7 +35,7 @@ static bool	is_valid_pos(t_vector *pos, char **map)
 	&& map[(int) pos->y][(int) pos->x] != EXIT);
 }
 
-static t_vector	update_pos(t_vector *pos, char **map)
+static t_vector	get_new_pos(t_vector *pos, char **map)
 {
 	int			change;
 	t_vector	new_pos;
@@ -106,7 +106,7 @@ void	move_enemies(mlx_t *mlx, t_entity *enemy, t_map *map)
 	while (i < map->num_enemies)
 	{
 		pos = get_enemy_i_pos(map->map_2d, i);
-		new_pos = update_pos(&pos, map->map_2d);
+		new_pos = get_new_pos(&pos, map->map_2d);
 		update_map(pos, new_pos, new_map);
 		move_enemy_i_sprites(i, enemy, &new_pos);
 		i++;
