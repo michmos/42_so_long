@@ -80,7 +80,7 @@ static int	display_all_instances(mlx_t *mlx, t_entity *entity, char **map)
 		x = 0;
 		while (map[y][x])
 		{
-			if (map[y][x] == entity->type)
+			if (map[y][x] == entity->type || (entity->type == SPACE && map[y][x] != WALL))
 			{
 				if (display_sprite(mlx, entity, x, y) == -1)
 					return (-1);
