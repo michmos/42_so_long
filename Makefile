@@ -1,68 +1,57 @@
 
 NAME		:= so_long
 
-LIBS		:= ft mlx42
-LIBS_TARGET	:= \
-			   external_libs/42_libs/libft.a \
-			   external_libs/MLX42/build/libmlx42.a
-
 LIBS_DIR	:= external_libs
-LIBFT		:= 42_libs/libft.a
-MLX			:= MLX42/build/libmlx42.a
+LIBFT		:= $(LIBS_DIR)/42_libs/libft.a
+MLX42_DIR	:= $(LIBS_DIR)/MLX42
+MLX42		:= $(MLX42_DIR)/build/libmlx42.a
+LIBS		:= $(LIBFT) $(MLX42) -ldl -lglfw -pthread -lm
 
-HEADER_FILE	:= so_long.h
+SUBMOD_FLAG	:= $(MLX42_DIR)/README.md
 
 SRC_DIR		:= src
-SRCS		:= main.c free.c map_ops.c \
-			   $(addprefix init_struct/, \
-			   		init_struct.c init_entities.c init_map.c \
-			   		error_check.c error_check2.c load_menus.c) \
-			   $(addprefix display_game/, \
-			   		display_menus.c display_game.c) \
-			   $(addprefix hook/, \
-			   		load_images.c sprite.c hooks.c \
-					move_player.c update_animations.c collect_item.c \
-					move_enemies.c reset_game.c step_count.c) \
-			   $(addprefix utils/, \
-			   		utils.c utils2.c)
-SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
+SRCS		:= $(shell find $(SRC_DIR) -iname "*.c")
 
 OBJ_DIR		:= .build
 OBJS		:= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC			:= cc
-CFLAGS		:= -g -MMD
-MLXFLAGS	:= -ldl -lglfw -pthread -lm
-LINKERFLAGS	:= $(addprefix -L, $(dir $(LIBS_TARGET))) $(addprefix -l, $(LIBS))
+CFLAGS		:= -Wall -Werror -Wextra -Wunused -Wuninitialized -Wunreachable-code -g -MMD
 RM			:= rm -rf
-
 
 all: $(NAME)
 
 -include $(OBJS:.o=.d)
 
-$(NAME): $(OBJS) $(LIBS_TARGET)
-	@printf "\n"
-	$(CC) $(OBJS) $(LINKERFLAGS) $(MLXFLAGS) -o $(NAME)
+$(NAME): $(SUBMOD_FLAG) $(LIBFT) $(MLX42) $(OBJS)
+	$(CC) $(OBJS) $(LIBS) -o $(NAME)
 	@printf "$(CREATED)" $@ $(CUR_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBS_TARGET):
+$(SUBMOD_FLAG):
+	git submodule init
+	git submodule update
+
+$(LIBFT):
 	$(MAKE) -C $(@D) all
 
+$(MLX42):	
+	cmake $(MLX42_DIR) -B $(dir $(MLX42)) && make -C $(dir $(MLX42)) -j4
+	@printf "$(CREATED)" $@ $(dir $(abspath $(MLX42)))
+
 clean:
-	for i in $(dir $(LIBS_TARGET)); do $(MAKE) -C $$i clean; done
+	$(MAKE) -C $(dir $(LIBFT)) clean
+	$(RM) $(dir $(MLX42))
+	@printf "$(REMOVED)" "build" "$(dir $(abspath $(MLX42_DIR)))"
 	$(RM) $(OBJ_DIR)
 	@printf "$(REMOVED)" $(OBJ_DIR) $(CUR_DIR)
 
 fclean: clean
-	$(MAKE) -C external_libs/42_libs fclean
-	$(RM) $(OBJ_DIR)
+	$(MAKE) -C $(dir $(LIBFT)) fclean
 	$(RM) $(NAME)
-	@printf "$(REMOVED)" $(OBJ_DIR) $(CUR_DIR)
 	@printf "$(REMOVED)" $(NAME) $(CUR_DIR)
 
 re:
@@ -72,7 +61,7 @@ re:
 info-%:
 	$(info $($*))
 
-.PHONY: clean flcean re
+.PHONY: clean fclean re
 
 # ----------------------------------- colors --------------------------------- #
 
