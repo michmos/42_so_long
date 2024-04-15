@@ -62,7 +62,7 @@ static void	reset_enemies(t_entity *enemy, t_map *map)
 	}
 }
 
-static void	reset_map(t_map *map, t_map *backup)
+void	reset_map(t_map *map, t_map *backup)
 {
 	free(map->map_1d);
 	free_2d_array((void **) map->map_2d);

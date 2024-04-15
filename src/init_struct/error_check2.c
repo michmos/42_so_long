@@ -25,22 +25,12 @@ static void	cross_reachable_space(char **map, size_t y, size_t x)
 	return ;
 }
 
-bool	has_valid_path(t_map *map)
+bool	has_valid_path(t_map *map, t_map *backup_map)
 {
-	char **map_dup;
+	bool	is_valid;
 
-	map_dup = dup_map(map->map_2d, map->height);
-	if (!map_dup)
-	{
-		free_2d_array((void **)map->map_2d); // TODO: wrongly protected
-		
-	}
-	cross_reachable_space(map_dup, map->player_pos.y, map->player_pos.x);
-	if (!has_entity(map_dup, EXIT) && !has_entity(map_dup, ITEM))
-	{
-		free_2d_array((void **) map_dup);
-		return (true);
-	}
-	free_2d_array((void **) map_dup);
-	return (false);
+	cross_reachable_space(map->map_2d, map->player_pos.y, map->player_pos.x);
+	is_valid = !has_entity(map->map_2d, EXIT) && !has_entity(map->map_2d, ITEM);
+	reset_map(map, backup_map);
+	return (is_valid);
 }

@@ -24,7 +24,7 @@ void	init_struct(t_game *game, char *map_path)
 	{
 		end_game(game, EXIT_FAILURE);
 	}
-	if (error_check(&game->map))
+	if (error_check(&game->map, &game->backup_map))
 	{
 		end_game(game, EXIT_FAILURE);
 	}

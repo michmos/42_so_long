@@ -3,52 +3,52 @@
 #include <stddef.h>
 
 
-static bool	is_closed(t_map *map)
+static bool	is_closed(char **map, size_t height, size_t width)
 {
 	size_t	x;
 	size_t	y;
 
 	x = 0;
-	while (map->map_2d[0][x])
+	while (map[0][x])
 	{
-		if (map->map_2d[0][x] != WALL)
+		if (map[0][x] != WALL)
 			return (false);
 		x++;
 	}
 	y = 1;
-	while (y < map->height - 1)
+	while (y < height - 1)
 	{
-		if (map->map_2d[y][0] != WALL || map->map_2d[y][map->width -1] != WALL)
+		if (map[y][0] != WALL || map[y][width -1] != WALL)
 			return (false);
 		y++;
 	}
 	x = 0;
-	while (map->map_2d[map->height - 1][x])
+	while (map[height - 1][x])
 	{
-		if (map->map_2d[map->height -1][x] != WALL)
+		if (map[height -1][x] != WALL)
 			return (false);
 		x++;
 	}
 	return (true);
 }
 
-static bool	is_rectangular(t_map *map)
+static bool	is_rectangular(char **map, size_t width)
 {
-	size_t	i;
+	size_t	y;
 
-	i = 0;
-	while (map->map_2d[i])
+	y = 0;
+	while (map[y])
 	{
-		if (ft_strlen(map->map_2d[i]) != map->width)
+		if (ft_strlen(map[y]) != width)
 		{
 			return (false);
 		}
-		i++;
+		y++;
 	}
 	return (true);
 }
 
-static bool	has_duplicates(t_map *map)
+static bool	has_duplicates(char *map)
 {
 	bool	player;
 	bool	exit;
@@ -57,16 +57,20 @@ static bool	has_duplicates(t_map *map)
 	i = 0;
 	player = false;
 	exit = false;
-	while (map->map_1d[i])
+	while (map[i])
 	{
-		if (map->map_1d[i] == PLAYER && player == true)
-			return (true);
-		else if (map->map_1d[i] == EXIT && exit == true)
-			return (true);
-		else if (map->map_1d[i] == PLAYER)
+		if (map[i] == PLAYER)
+		{
+			if(player)
+				return (true);
 			player = true;
-		else if (map->map_1d[i] == EXIT)
-			player = true;
+		}
+		else if (map[i] == EXIT)
+		{
+			if(exit)
+				return (true);
+			exit = true;
+		}
 		i++;
 	}
 	return (false);
@@ -128,7 +132,7 @@ static bool	has_unvalid_chars(char *map)
 	return (false);
 }
 
-int	error_check(t_map *map)
+int	error_check(t_map *map, t_map *backup_map)
 {
 	if (has_unvalid_chars(map->map_1d))
 		print_err("Map contains unvalid characters");
@@ -136,13 +140,13 @@ int	error_check(t_map *map)
 		print_err("Map should not contain inner empty lines");
 	else if (!has_e_c_p(map))
 		print_err("Map must contain the characters E, C and P");
-	else if (has_duplicates(map))
+	else if (has_duplicates(map->map_1d))
 		print_err("Map: There can only be one start and one exit");
-	else if (!is_rectangular(map))
+	else if (!is_rectangular(map->map_2d, map->width))
 		print_err("Map must be rectangular");
-	else if (!is_closed(map))
+	else if (!is_closed(map->map_2d, map->height, map->width))
 		print_err("Map must be closed");
-	else if (!has_valid_path(map))
+	else if (!has_valid_path(map, backup_map))
 		print_err("Map: There must be a valid path from start to exit");
 	else
 		return (0);
