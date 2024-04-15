@@ -1,12 +1,29 @@
 
 #include "../so_long.h"
-#include <stdio.h>
+
+static bool	is_new_count(mlx_image_t *img, size_t new_count)
+{
+	static size_t	last_count;
+
+	if (!img)
+	{
+		return (true);
+	}
+	else if (last_count != new_count)
+	{
+		last_count = new_count;
+		return (true);
+	}
+	else
+	{
+		return (false);
+	}
+}
 
 void	my_loop_hook(void *param)
 {
 	t_game 		*game;
 	static bool	freeze;
-	static int	last_count;
 
 	game = (t_game *) param;
 	if ((freeze && mlx_is_key_down(game->mlx, MLX_KEY_SPACE)))
@@ -20,10 +37,9 @@ void	my_loop_hook(void *param)
 	}
 	if (!freeze)
 	{
-		if (!game->map.steps_img || last_count != game->map.steps)
+		if (is_new_count(game->map.steps_img, game->map.steps))
 		{
 			print_step_count(game->mlx, &game->map.steps_img, game->map.steps);
-			last_count = game->map.steps;
 		}
 		move_player(game->mlx, &game->entities.player, &game->map);
 		if (get_entity(game->map.map_2d, &game->map.player_pos) == ITEM)
@@ -43,6 +59,6 @@ void	my_loop_hook(void *param)
 		}
 		move_enemies(game->mlx, &game->entities.enemy, &game->map);
 	}
-	update_animations(game);
+	update_animations(&game->entities, game->mlx->delta_time);
 }
 

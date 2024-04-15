@@ -177,7 +177,7 @@ void	move_player(mlx_t *mlx, t_entity *player, t_map *map);
 void	collect_item(t_entity *item, t_map *map, char **og_map);
 
 // update_animations.c -------------------------------------------------------//
-void	update_animations(t_game *game);
+void	update_animations(t_entity_list *entities, double mlx_delta_time);
 
 // move_enemies.c ------------------------------------------------------------//
 void		move_enemies(mlx_t *mlx, t_entity *enemy, t_map *map);

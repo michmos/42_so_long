@@ -89,8 +89,8 @@ void	init_map(t_map *map, const char *map_path)
 	}
 	map->height = get_height(map->map_2d);
 	map->width = ft_strlen(map->map_2d[0]);
-	find_item_pos(map->map_2d, 'E', &map->exit_pos.y, &map->exit_pos.x);
-	find_item_pos(map->map_2d, 'P', &map->player_pos.y, &map->player_pos.x);
+	find_item_pos(map->map_2d, EXIT, &map->exit_pos.y, &map->exit_pos.x);
+	find_item_pos(map->map_2d, PLAYER, &map->player_pos.y, &map->player_pos.x);
 	map->num_items = count(map->map_1d, ITEM);
 	map->num_enemies = count(map->map_1d, ENEMY);
 }

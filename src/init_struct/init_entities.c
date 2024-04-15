@@ -26,7 +26,7 @@ static int init_entity(mlx_t *mlx, t_entity *entity, mlx_image_t *sprite_sheet, 
 		print_err("Height of pngs needs to be >= TEXTURE_WIDTH");
 		return (-1);
 	}
-	entity->current_variation = -1; // TODO: probably unnecessary variable
+	entity->current_variation = -1;
 	entity->num_frames = sprite_sheet->width / TEXTURE_WIDTH;
 	if (entity->num_frames == 0)
 	{

@@ -3,7 +3,7 @@
 
 int	print_step_count(mlx_t *mlx, mlx_image_t **step_count, int steps)
 {
-	char 		*temp;
+	char *temp;
 
 	temp = ft_itoa(steps);
 	if (!temp)
@@ -21,8 +21,11 @@ int	print_step_count(mlx_t *mlx, mlx_image_t **step_count, int steps)
 		mlx_delete_image(mlx, *step_count);
 	}
 	*step_count = mlx_put_string(mlx, temp, STEP_COUNT_POS_X + 80, STEP_COUNT_POS_Y);
-	free(temp);
 	if (!step_count)
+	{
+		free(temp);
 		return (-1);
+	}
+	free(temp);
 	return (0);
 }

@@ -30,12 +30,12 @@ static void	update_animation(t_entity *entity, double mlx_delta_time)
 	entity->current_frame = new_frame;
 }
 
-void	update_animations(t_game *game)
+void	update_animations(t_entity_list *entities, double mlx_delta_time)
 {
-	update_animation(&game->entities.space,  game->mlx->delta_time);
-	update_animation(&game->entities.wall,  game->mlx->delta_time);
-	update_animation(&game->entities.player,  game->mlx->delta_time);
-	update_animation(&game->entities.exit,  game->mlx->delta_time);
-	update_animation(&game->entities.item,  game->mlx->delta_time);
-	update_animation(&game->entities.enemy,  game->mlx->delta_time);
+	update_animation(&entities->space,  mlx_delta_time);
+	update_animation(&entities->wall,  mlx_delta_time);
+	update_animation(&entities->player,  mlx_delta_time);
+	update_animation(&entities->exit,  mlx_delta_time);
+	update_animation(&entities->item,  mlx_delta_time);
+	update_animation(&entities->enemy,  mlx_delta_time);
 }
