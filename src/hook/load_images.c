@@ -34,6 +34,22 @@ static int	textures_to_img(mlx_t *mlx, t_texture_list *textures, t_img_list *img
 	return (0);
 }
 
+static void	delete_textures(t_texture_list *textures)
+{
+	if (textures->space)
+		mlx_delete_texture(textures->space);
+	if (textures->wall)
+		mlx_delete_texture(textures->wall);
+	if (textures->player)
+		mlx_delete_texture(textures->player);
+	if (textures->exit)
+		mlx_delete_texture(textures->exit);
+	if (textures->items)
+		mlx_delete_texture(textures->items);
+	if (textures->enemies)
+		mlx_delete_texture(textures->enemies);
+}
+
 static int	load_textures(t_texture_list *textures)
 {
 	textures->space = mlx_load_png(SPACE_TEXTURE);
@@ -61,14 +77,18 @@ int load_images(mlx_t *mlx, t_img_list *entity_imgs)
 {
 	t_texture_list textures;
 	
+	ft_bzero(&textures, sizeof(t_texture_list));
+
 	if (load_textures(&textures) == -1)
 	{
+		delete_textures(&textures);
 		return (-1);
 	}
 	if (textures_to_img(mlx, &textures, entity_imgs) == -1)
 	{
+		delete_textures(&textures);
 		return (-1);
 	}
+	delete_textures(&textures);
 	return (0);
 }
-
