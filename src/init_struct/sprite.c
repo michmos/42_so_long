@@ -1,6 +1,31 @@
 
 #include "../so_long.h"
-#include <stddef.h>
+
+static void clean_up_frames(mlx_t *mlx, mlx_image_t **frames)
+{
+	size_t	i;
+
+	i = 0;
+	while (frames[i])
+	{
+		mlx_delete_image(mlx, frames[i]);
+		i++;
+	}
+	free(frames);
+}
+
+static void clean_up_sprites(mlx_t *mlx, mlx_image_t ***sprites)
+{
+	size_t	i;
+
+	i = 0;
+	while (sprites[i])
+	{
+		clean_up_frames(mlx, sprites[i]);
+		i++;
+	}
+	free(sprites);
+}
 
 static mlx_image_t	*dup_frame(mlx_t *mlx, mlx_image_t *src, size_t start_x, size_t start_y)
 {
@@ -45,8 +70,8 @@ static mlx_image_t **split_into_frames(mlx_t *mlx, mlx_image_t *sprite_sheet, si
 		frames[i] = dup_frame(mlx, sprite_sheet, i * TEXTURE_WIDTH, row * TEXTURE_WIDTH);
 		if (!frames[i])
 		{
-			; // TODO: protect
-			return (frames);
+			clean_up_frames(mlx, frames);
+			return (NULL);
 		}
 		i++;
 	}
@@ -59,7 +84,6 @@ mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, size_t 
 	mlx_image_t	***sprites;
 	size_t		i;
 
-
 	sprites = (mlx_image_t ***) malloc((num_vars + 1) * sizeof(mlx_image_t **));
 	if (!sprites)
 	{
@@ -71,7 +95,7 @@ mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, size_t 
 		sprites[i] = split_into_frames(mlx, sprite_sheet, i, num_frames);
 		if (!sprites[i])
 		{
-			; // TODO: protect
+			clean_up_sprites(mlx, sprites);
 			return (NULL);
 		}
 		i++;
