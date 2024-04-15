@@ -12,7 +12,7 @@
 # define SUCCESS_MESSAGE "CONGRATS!!! You collected all the plastic. Thanks for saving the planet. Press <ESC> to exit or <SPACE> to restart"
 
 // FPS of the sprites
-# define SPACE_FPS 4
+# define SPACE_FPS 6
 # define WALL_FPS 4
 # define PLAYER_FPS 6
 # define EXIT_FPS 10
@@ -24,7 +24,7 @@
 
 // how much time is between the enemy moves
 // in seconds (the smaller the harder)
-# define ENEMY_SPEED 4
+# define ENEMY_SPEED 2
 
 // paths to the entity textures
 # define SPACE_TEXTURE "textures/space/water.png"
