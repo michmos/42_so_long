@@ -4,7 +4,7 @@
 
 static int	display_all_frames(mlx_t *mlx, mlx_image_t **sprite, int x, int y)
 {
-	int frame;
+	size_t frame;
 
 	frame = 0;
 	while (sprite[frame])
@@ -42,10 +42,10 @@ static int	display_sprite(mlx_t *mlx, t_entity *entity, int x, int y)
 
 static int	display_background(t_game *game) // TODO: delete this
 {
-	int	y;
-	int	x;
-	int	width;
-	int	height;
+	size_t	y;
+	size_t	x;
+	size_t	width;
+	size_t	height;
 	mlx_image_t *background;
 
 
@@ -71,8 +71,8 @@ static int	display_background(t_game *game) // TODO: delete this
 
 static int	display_all_instances(mlx_t *mlx, t_entity *entity, char **map)
 {
-	int	y;
-	int	x;
+	size_t	y;
+	size_t	x;
 
 	y = 0;
 	while (map[y])
@@ -80,7 +80,7 @@ static int	display_all_instances(mlx_t *mlx, t_entity *entity, char **map)
 		x = 0;
 		while (map[y][x])
 		{
-			if (map[y][x] == entity->type || (entity->type == SPACE && map[y][x] != WALL))
+			if (map[y][x] == (char) entity->type || (entity->type == SPACE && map[y][x] != WALL))
 			{
 				if (display_sprite(mlx, entity, x, y) == -1)
 					return (-1);

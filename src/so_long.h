@@ -11,6 +11,7 @@
 # include "settings.h"
 # include <fcntl.h>
 # include <math.h>
+#include <stddef.h>
 
 # define CHAR_PIXEL_SIZE 10
 
@@ -42,8 +43,8 @@ typedef struct s_map
 {
 	char		*map_1d;
 	char		**map_2d;
-	int			height;
-	int			width;
+	size_t		height;
+	size_t		width;
 	t_vector	player_pos;
 	t_vector	exit_pos;
 	size_t		num_items;
@@ -72,10 +73,10 @@ typedef struct s_entity
 {
 	enum e_entity	type;
 	mlx_image_t		***sprites;
-	int				num_variations;
-	int				current_variation;
-	int				num_frames;
-	int				current_frame;
+	size_t			num_variations;
+	size_t			current_variation;
+	size_t			num_frames;
+	size_t			current_frame;
 	int				fps;
 	double			delta_time;
 } t_entity;
@@ -134,13 +135,13 @@ void	init_map(t_map *map, const char *map_path);
 int	error_check(t_map *map);
 
 // error_check2.c ------------------------------------------------------------//
-int	has_valid_path(t_map *map);
+bool	has_valid_path(t_map *map);
 
 // load_images.c -------------------------------------------------------------//
 int load_images(mlx_t *mlx, t_img_list *imgs);
 
 // sprites.c -----------------------------------------------------------------//
-mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, int num_variations, int num_frames);
+mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, size_t num_vars, size_t num_frames);
 
 // init_entities.c -----------------------------------------------------------//
 int	init_entities(mlx_t *mlx, t_entity_list *entities, t_img_list* imgs);
@@ -177,7 +178,7 @@ void	update_animations(t_game *game);
 // move_enemies.c ------------------------------------------------------------//
 void		move_enemies(mlx_t *mlx, t_entity *enemy, t_map *map);
 void		move_enemy_i_sprites(int i, t_entity *enemy, t_vector *new_pos);
-t_vector	get_enemy_i_pos(char **map, int index);
+t_vector	get_enemy_i_pos(char **map, size_t index);
 
 // end_screens.c -------------------------------------------------------------//
 void	display_message(t_game *game, int color, char *message);

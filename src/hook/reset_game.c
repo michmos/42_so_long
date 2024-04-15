@@ -3,10 +3,10 @@
 
 static void	reset_player(t_entity *player, t_vector pos)
 {
-	int	frame;
-	int	variation;
-	int	y;
-	int	x;
+	size_t	frame;
+	size_t	variation;
+	size_t	y;
+	size_t	x;
 
 	y = pos.y * TEXTURE_WIDTH;
 	x = pos.x * TEXTURE_WIDTH;
@@ -26,9 +26,9 @@ static void	reset_player(t_entity *player, t_vector pos)
 
 static void	reset_items(t_entity *item)
 {
-	int	variation;
-	int	frame;
-	int	instance;
+	size_t	variation;
+	size_t	frame;
+	size_t	instance;
 	
 	variation = 0;
 	while(variation < item->num_variations)
@@ -50,7 +50,7 @@ static void	reset_items(t_entity *item)
 
 static void	reset_enemies(t_entity *enemy, t_map *map)
 {
-	int			i;
+	size_t		i;
 	t_vector	pos;
 
 	i = 0;
@@ -64,7 +64,6 @@ static void	reset_enemies(t_entity *enemy, t_map *map)
 
 static void	reset_map(t_map *map, t_map *backup)
 {
-	int	i;
 	free(map->map_1d);
 	free_2d_array((void **) map->map_2d);
 	copy_t_map(map, backup);

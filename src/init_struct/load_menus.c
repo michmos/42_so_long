@@ -1,10 +1,11 @@
 
 #include "../so_long.h"
+#include <stddef.h>
 
-static mlx_image_t	*create_colored_img(mlx_t *mlx, int width, int height, int color)
+static mlx_image_t	*create_colored_img(mlx_t *mlx, size_t width, size_t height, int color)
 {
-	int			y;
-	int			x;
+	size_t		y;
+	size_t		x;
 	mlx_image_t	*img;
 
 	img = mlx_new_image(mlx, width, height);
@@ -26,9 +27,8 @@ static mlx_image_t	*create_colored_img(mlx_t *mlx, int width, int height, int co
 
 int	load_menus(mlx_t *mlx, t_menu_list *menus, t_map *map)
 {
-	int			width;
-	int			height;
-	t_menu		menu;
+	size_t		width;
+	size_t		height;
 
 	width = TEXTURE_WIDTH * map->width;
 	height = TEXTURE_WIDTH * map->height;

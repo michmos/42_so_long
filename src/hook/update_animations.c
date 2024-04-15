@@ -3,9 +3,9 @@
 
 static void	update_animation(t_entity *entity, double mlx_delta_time)
 {
-	int	var;
-	int	old_frame;
-	int	new_frame;
+	size_t	var;
+	size_t	old_frame;
+	size_t	new_frame;
 
 	entity->delta_time += mlx_delta_time;
 	if (entity->delta_time * entity->fps < 1)

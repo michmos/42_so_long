@@ -19,8 +19,8 @@ void	print_err(const char *err_message)
 
 void	find_item_pos(char **map, char item, double *y_pos, double *x_pos)
 {
-	int y;
-	int	x;
+	size_t	y;
+	size_t	x;
 
 	if (!map || !*map)
 		return ;
@@ -44,9 +44,9 @@ void	find_item_pos(char **map, char item, double *y_pos, double *x_pos)
 	*y_pos = -1;
 }
 
-char	**dup_map(char **map, size_t	size)
+char	**dup_map(char **map, size_t size)
 {
-	int 	y;
+	size_t 	y;
 	char	**dup_map;
 
 	y = 0;
@@ -76,7 +76,7 @@ int get_rgba(int r, int g, int b, int a)
 
 int	get_pixel(mlx_image_t *img, int y, int x)
 {
-	int		pixel_index;
+	size_t	pixel_index;
 	uint8_t	*pixel_data;
 	int		rgba;
 

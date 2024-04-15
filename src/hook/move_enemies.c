@@ -1,5 +1,6 @@
 
 #include "../so_long.h"
+#include <stddef.h>
 
 static void	update_map(t_vector old_pos, t_vector new_pos, char **map)
 {
@@ -12,9 +13,9 @@ static void	update_map(t_vector old_pos, t_vector new_pos, char **map)
 
 void	move_enemy_i_sprites(int i, t_entity *enemy, t_vector *new_pos)
 {
-	int	variation;
-	int	instance;
-	int	frame;
+	size_t	variation;
+	size_t	instance;
+	size_t	frame;
 
 	instance = i / enemy->num_variations;
 	variation = i % enemy->num_variations;
@@ -61,11 +62,11 @@ static t_vector	get_new_pos(t_vector *pos, char **map)
 	return (*pos);
 }
 
-t_vector	get_enemy_i_pos(char **map, int index)
+t_vector	get_enemy_i_pos(char **map, size_t index)
 {
-	int count;
-	int y;
-	int x;
+	int 	count;
+	size_t 	y;
+	size_t 	x;
 
 	count = 0;
 	y = 0;
@@ -76,7 +77,7 @@ t_vector	get_enemy_i_pos(char **map, int index)
 		{
 			if (map[y][x] == ENEMY)
 			{
-				if (count == index)
+				if ((size_t) count == index)
 					return ((t_vector){x, y});
 				count++;
 			}

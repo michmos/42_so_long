@@ -1,12 +1,13 @@
 
 #include "../so_long.h"
+#include <stddef.h>
 #include <stdio.h>
 
-static int	get_item_index(char **map, int pos_y, int pos_x)
+static int	get_item_index(char **map, size_t pos_y, size_t pos_x)
 {
-	int	y;
-	int	x;
-	int	count;
+	size_t	y;
+	size_t	x;
+	int		count;
 
 	y = 0;
 	count = -1;
@@ -30,10 +31,10 @@ static int	get_item_index(char **map, int pos_y, int pos_x)
 
 void	collect_item(t_entity *item, t_map *map, char **og_map)
 {
-	int	i;
-	int	variation;
-	int	instance;
-	int	frame;
+	size_t	i;
+	size_t	variation;
+	size_t	instance;
+	size_t	frame;
 
 	i = get_item_index(og_map, round(map->player_pos.y), round(map->player_pos.x));
 	instance = i / item->num_variations;

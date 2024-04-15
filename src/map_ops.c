@@ -17,8 +17,8 @@ int	copy_t_map(t_map *map_dest, t_map *map_src)
 
 char	get_entity(char **map, t_vector *position)
 {
-	int	y;
-	int	x;
+	size_t	y;
+	size_t	x;
 
 	y = (int) round(position->y);
 	x = (int) round(position->x);

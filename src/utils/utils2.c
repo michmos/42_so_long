@@ -1,5 +1,6 @@
 
 #include "utils.h"
+#include <stddef.h>
 
 int has_entity(char **map, int entity)
 {
@@ -53,7 +54,7 @@ int random_value(int min, int max)
 
 void	free_2d_array(void **arr)
 {
-	int y;
+	size_t y;
 
 	y = 0;
 	if (!arr)

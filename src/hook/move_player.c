@@ -5,8 +5,8 @@
 
 static void	move_sprites(t_entity *entity, enum e_direction direction)
 {
-	int	vars;
-	int	frames;
+	size_t	vars;
+	size_t	frames;
 
 
 	vars = 0;
@@ -52,7 +52,7 @@ static enum e_player_motion	get_motion(int last_motion, int direction)
 	return (last_motion);
 }
 
-static void	update_motion(t_entity *player, int direction, int last_motion, int current_frame)
+static void	update_motion(t_entity *player, int direction, enum e_player_motion last_motion, int current_frame)
 {
 	enum e_player_motion	motion;
 
@@ -92,10 +92,10 @@ static bool	is_valid_overlap(double pos, int allowed_overlap)
 
 static int	is_wall(char **map_2d, t_vector *new_pos)
 {
-	int	x1;
-	int	x2;
-	int	y1;
-	int	y2;
+	size_t	x1;
+	size_t	x2;
+	size_t	y1;
+	size_t	y2;
 
 	y1 = ceil(new_pos->y);
 	y2 = floor(new_pos->y);
@@ -121,7 +121,7 @@ static int	is_wall(char **map_2d, t_vector *new_pos)
 
 static int	update_pos(t_map *map, int direction)
 {
-	t_vector			new_pos;
+	t_vector	new_pos;
 
 	new_pos.x = map->player_pos.x;
 	new_pos.y = map->player_pos.y;

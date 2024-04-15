@@ -1,12 +1,13 @@
 
 #include "../so_long.h"
+#include <stddef.h>
 
-static int	is_valid_space(char c)
+static bool	is_valid_space(char c)
 {
 	return (c != WALL && c != 'x' && c != ENEMY);  // TODO: update for mandatory part
 }
 
-static void	cross_reachable_space(char **map, int y, int x)
+static void	cross_reachable_space(char **map, size_t y, size_t x)
 {
 	if (x == 0 || map[y][x] == '\0' || y == 0 || map[y] == NULL)
 	{
@@ -24,7 +25,7 @@ static void	cross_reachable_space(char **map, int y, int x)
 	return ;
 }
 
-int	has_valid_path(t_map *map)
+bool	has_valid_path(t_map *map)
 {
 	char **map_dup;
 

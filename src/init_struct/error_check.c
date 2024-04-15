@@ -1,11 +1,12 @@
 
 #include "../so_long.h"
+#include <stddef.h>
 
 
-static int	is_closed(t_map *map)
+static bool	is_closed(t_map *map)
 {
-	int	x;
-	int	y;
+	size_t	x;
+	size_t	y;
 
 	x = 0;
 	while (map->map_2d[0][x])
@@ -31,14 +32,14 @@ static int	is_closed(t_map *map)
 	return (true);
 }
 
-static int	is_rectangular(t_map *map)
+static bool	is_rectangular(t_map *map)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (map->map_2d[i])
 	{
-		if ((int) ft_strlen(map->map_2d[i]) != map->width)
+		if (ft_strlen(map->map_2d[i]) != map->width)
 		{
 			return (false);
 		}
@@ -47,11 +48,11 @@ static int	is_rectangular(t_map *map)
 	return (true);
 }
 
-static int	has_duplicates(t_map *map)
+static bool	has_duplicates(t_map *map)
 {
 	bool	player;
 	bool	exit;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	player = false;
@@ -71,7 +72,7 @@ static int	has_duplicates(t_map *map)
 	return (false);
 }
 
-static int	has_e_c_p(t_map *map)
+static bool	has_e_c_p(t_map *map)
 {
 	if (map->player_pos.y == -1 || map->exit_pos.y == -1)
 	{
@@ -84,9 +85,9 @@ static int	has_e_c_p(t_map *map)
 	return (true);
 }
 
-static int	has_inner_empty_lines(char *map)
+static bool	has_inner_empty_lines(char *map)
 {
-	int		i;
+	size_t	i;
 	char	*temp;
 
 	if (!map)
@@ -113,9 +114,9 @@ static int	has_inner_empty_lines(char *map)
 	return (true);
 }
 
-static int	has_unvalid_chars(char *map)
+static bool	has_unvalid_chars(char *map)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (map[i])

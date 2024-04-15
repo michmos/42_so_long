@@ -1,5 +1,6 @@
 
 #include "../so_long.h"
+#include <stddef.h>
 
 static char	*read_file(int fd)
 {
@@ -33,7 +34,7 @@ static char *get_map(const char *map_path)
 {
 	int 	fd;
 	char	*map;
-	int		strlen;
+	size_t	strlen;
 
 	strlen = ft_strlen(map_path);
 	if (strlen < 4 || ft_strncmp(&map_path[strlen - 4], ".ber", 4) != 0)
@@ -53,7 +54,7 @@ static char *get_map(const char *map_path)
 
 static size_t	get_height(char **arr)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (!arr)

@@ -3,7 +3,6 @@
 
 int	print_step_count(mlx_t *mlx, mlx_image_t **step_count, int steps)
 {
-	mlx_image_t	*steps_img;
 	char 		*temp;
 
 	temp = ft_itoa(steps);

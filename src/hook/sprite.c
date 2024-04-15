@@ -1,10 +1,11 @@
 
 #include "../so_long.h"
+#include <stddef.h>
 
-mlx_image_t	*dup_frame(mlx_t *mlx, mlx_image_t *src, int start_x, int start_y)
+static mlx_image_t	*dup_frame(mlx_t *mlx, mlx_image_t *src, size_t start_x, size_t start_y)
 {
-	int 	 	y;
-	int 	 	x;
+	size_t 	 	y;
+	size_t 	 	x;
 	int  		rgba;
 	mlx_image_t *frame;
 
@@ -28,9 +29,9 @@ mlx_image_t	*dup_frame(mlx_t *mlx, mlx_image_t *src, int start_x, int start_y)
 	return (frame);
 }
 
-mlx_image_t **split_into_frames(mlx_t *mlx, mlx_image_t *sprite_sheet, int row, int num_frames)
+static mlx_image_t **split_into_frames(mlx_t *mlx, mlx_image_t *sprite_sheet, size_t row, size_t num_frames)
 {
-	int			i;
+	size_t		i;
 	mlx_image_t	**frames;
 
 	i = 0;
@@ -53,10 +54,10 @@ mlx_image_t **split_into_frames(mlx_t *mlx, mlx_image_t *sprite_sheet, int row, 
 	return (frames);
 }
 
-mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, int num_vars, int num_frames)
+mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, size_t num_vars, size_t num_frames)
 {
 	mlx_image_t	***sprites;
-	int			i;
+	size_t		i;
 
 
 	sprites = (mlx_image_t ***) malloc((num_vars + 1) * sizeof(mlx_image_t **));
