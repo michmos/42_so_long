@@ -1,6 +1,5 @@
 
 #include "../so_long.h"
-#include <stdlib.h>
 
 static int	display_all_frames(mlx_t *mlx, mlx_image_t **sprite, int x, int y)
 {
@@ -37,35 +36,6 @@ static int	display_sprite(mlx_t *mlx, t_entity *entity, int x, int y)
 			return (-1);
 		entity->sprites[entity->current_variation][0]->enabled = true;
 	}
-	return (0);
-}
-
-static int	display_background(t_game *game) // TODO: delete this
-{
-	size_t	y;
-	size_t	x;
-	size_t	width;
-	size_t	height;
-	mlx_image_t *background;
-
-
-	width = TEXTURE_WIDTH * game->map.width;
-	height = TEXTURE_WIDTH * game->map.height;
-	background = mlx_new_image(game->mlx, width, height);
-	if (!background)
-		return (-1);
-	y = 0;
-	while (y < height)
-	{
-		x = 0;
-		while (x < width)
-		{
-			mlx_put_pixel(background, x, y, get_rgba(50, 75, 190, 0xFF));
-			x++;
-		}
-		y++;
-	}
-	mlx_image_to_window(game->mlx, background, 0, 0);
 	return (0);
 }
 
@@ -111,7 +81,6 @@ static int	display_entities(mlx_t *mlx, t_entity_list *entities, char **map)
 
 int	display_game(t_game *game)
 {
-	display_background(game);
 	if (display_entities(game->mlx, &game->entities, game->map.map_2d) == -1)
 	{
 		end_game(game, EXIT_FAILURE);
