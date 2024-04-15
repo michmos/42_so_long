@@ -146,18 +146,22 @@ mlx_image_t ***split_sprite_sheet(mlx_t *mlx, mlx_image_t *sprite_sheet, size_t 
 // init_entities.c -----------------------------------------------------------//
 int	init_entities(mlx_t *mlx, t_entity_list *entities, t_img_list* imgs);
 
-// menus.c -------------------------------------------------------------------//
-int	display_menus(mlx_t *mlx, t_menu_list *menus, t_map *map);
+// load_menus.c --------------------------------------------------------------//
+int	load_menus(mlx_t *mlx, t_menu_list *menus, t_map *map);
 
 
 // ------------------------ display_game/ -------------------------------------//
-// display_menus.c -----------------------------------------------------------//
-void	enable_menu(t_menu *menu);
-void	disable_menu(t_menu *menu);
-int	load_menus(mlx_t *mlx, t_menu_list *menus, t_map *map);
+// display_game.c ------------------------------------------------------------//
+int	display_game(t_game *game);
 
 // display_menus.c -----------------------------------------------------------//
-int	display_game(t_game *game);
+int		display_menus(mlx_t *mlx, t_menu_list *menus, t_map *map);
+void	enable_menu(t_menu *menu);
+void	disable_menu(t_menu *menu);
+
+// display_entities.c --------------------------------------------------------//
+int	display_entities(mlx_t *mlx, t_entity_list *entities, char **map);
+
 
 // ---------------------------- HOOK/ ----------------------------------------//
 // hooks.c -------------------------------------------------------------------//
