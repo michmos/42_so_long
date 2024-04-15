@@ -7,38 +7,50 @@ static char	*read_file(int fd)
 	char	*content;
 	char	*buffer;
 	char	*temp;
+	size_t	bytes_read;
 
 	content = NULL;
 	buffer = ft_calloc(BUFFER_SIZE, sizeof(char));
 	if (!buffer)
 		return (NULL);
-	while (read(fd, buffer, BUFFER_SIZE - 1) != 0)
+	while ((bytes_read = read(fd, buffer, BUFFER_SIZE - 1)) != 0)
 	{
-		if (!*buffer)
-			return (free(buffer), free(content), NULL);
-		else
+		if (bytes_read < 0)
 		{
-			temp = ft_strjoin(content, buffer);
-			free(content);
-			if (!temp)
-				return (free(buffer), NULL);
-			content = temp;
-			ft_memset(buffer, 0, ft_strlen(buffer));
+			return (free(buffer), free(content), NULL);
 		}
+		temp = ft_strjoin(content, buffer);
+		if (!temp)
+		{
+			return (free(buffer), free(content), NULL);
+		}
+		free(content);
+		content = temp;
+		ft_bzero(buffer, ft_strlen(buffer));
 	}
 	free(buffer);
 	return (content);
+}
+
+static bool	has_valid_file_extension(const char *path)
+{
+	size_t	strlen;
+
+	strlen = ft_strlen(path);
+	if (strlen < 4 || ft_strncmp(&path[strlen - 4], ".ber", 4) != 0)
+		return (false);
+	return (true);
 }
 
 static char *get_map(const char *map_path)
 {
 	int 	fd;
 	char	*map;
-	size_t	strlen;
 
-	strlen = ft_strlen(map_path);
-	if (strlen < 4 || ft_strncmp(&map_path[strlen - 4], ".ber", 4) != 0)
+	if (!has_valid_file_extension(map_path))
+	{
 		err_exit("file must end with .ber extension");
+	}
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 	{
