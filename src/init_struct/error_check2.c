@@ -3,7 +3,7 @@
 
 static bool	is_valid_space(char c)
 {
-	return (c != WALL && c != 'x' && c != ENEMY);  // TODO: update for mandatory part
+	return (c == SPACE || c == ITEM || c == EXIT);
 }
 
 static void	cross_reachable_space(char **map, size_t y, size_t x)

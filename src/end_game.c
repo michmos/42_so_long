@@ -1,7 +1,7 @@
 
 #include "so_long.h"
 
-void	end_game(t_game *game, int exit_code) // TODO: anything else missing
+void	end_game(t_game *game, int exit_code)
 {
 	free(game->map.map_1d);
 	free_2d_array((void **) game->map.map_2d);
