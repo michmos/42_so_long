@@ -1,5 +1,6 @@
 
 #include "../so_long.h"
+#include <stdlib.h>
 
 static bool	is_new_count(mlx_image_t *img, size_t new_count)
 {
@@ -57,7 +58,10 @@ void	my_loop_hook(void *param)
 			enable_menu(&game->menus.success);
 			freeze = true;
 		}
-		move_enemies(game->mlx, &game->entities.enemy, &game->map);
+		if (move_enemies(game->mlx->delta_time, &game->entities.enemy, &game->map) == -1)
+		{
+			end_game(game, EXIT_FAILURE);
+		}
 	}
 	update_animations(&game->entities, game->mlx->delta_time);
 }

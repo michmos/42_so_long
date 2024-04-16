@@ -180,9 +180,9 @@ void	collect_item(t_entity *item, t_map *map, char **og_map);
 void	update_animations(t_entity_list *entities, double mlx_delta_time);
 
 // move_enemies.c ------------------------------------------------------------//
-void		move_enemies(mlx_t *mlx, t_entity *enemy, t_map *map);
+int			move_enemies(double delta_time, t_entity *enemy, t_map *map);
+t_vector	get_next_enemy(char **map, t_vector starting_pos);
 void		move_enemy_i_sprites(int i, t_entity *enemy, t_vector *new_pos);
-t_vector	get_enemy_i_pos(char **map, size_t index);
 
 // end_screens.c -------------------------------------------------------------//
 void	display_message(t_game *game, int color, char *message);

@@ -1,13 +1,9 @@
 
 #include "../so_long.h"
-#include <stddef.h>
 
 static void	update_map(t_vector old_pos, t_vector new_pos, char **map)
 {
 	map[(int) old_pos.y][(int) old_pos.x] = SPACE;
-	map[(int) old_pos.y][(int) old_pos.x] = SPACE;
-
-	map[(int) new_pos.y][(int) new_pos.x] = ENEMY;
 	map[(int) new_pos.y][(int) new_pos.x] = ENEMY;
 }
 
@@ -17,8 +13,8 @@ void	move_enemy_i_sprites(int i, t_entity *enemy, t_vector *new_pos)
 	size_t	instance;
 	size_t	frame;
 
-	instance = i / enemy->num_variations;
 	variation = i % enemy->num_variations;
+	instance = i / enemy->num_variations;
 	frame = 0;
 	while(frame < enemy->num_frames)
 	{
@@ -36,7 +32,7 @@ static bool	is_valid_pos(t_vector *pos, char **map)
 	&& map[(int) pos->y][(int) pos->x] != EXIT);
 }
 
-static t_vector	get_new_pos(t_vector *pos, char **map)
+static t_vector	get_new_pos(t_vector pos, char **map)
 {
 	int			change;
 	t_vector	new_pos;
@@ -46,8 +42,7 @@ static t_vector	get_new_pos(t_vector *pos, char **map)
 	tries = 0;
 	while(tries < 5)
 	{
-		new_pos.x = pos->x;
-		new_pos.y = pos->y;
+		new_pos = pos;
 		change = random_value(-1, 1);
 		if (random_value(0, 1))
 			new_pos.y += change;
@@ -59,60 +54,74 @@ static t_vector	get_new_pos(t_vector *pos, char **map)
 		}
 		tries++;
 	}
-	return (*pos);
+	return (pos);
 }
 
-t_vector	get_enemy_i_pos(char **map, size_t index)
+t_vector	get_next_enemy(char **map, t_vector starting_pos)
 {
-	int 	count;
-	size_t 	y;
-	size_t 	x;
+	size_t y;
+	size_t x;
 
-	count = 0;
-	y = 0;
-	while (map[y])
+	y = starting_pos.y;
+	x = starting_pos.x + 1;
+	while(map[y])
 	{
-		x = 0;
 		while (map[y][x])
 		{
 			if (map[y][x] == ENEMY)
-			{
-				if ((size_t) count == index)
-					return ((t_vector){x, y});
-				count++;
-			}
+				return ((t_vector) {x, y});
 			x++;
 		}
+		x = 0;
 		y++;
 	}
-	return ((t_vector){x, y});
+	return ((t_vector) {-1, -1});
 }
 
-void	move_enemies(mlx_t *mlx, t_entity *enemy, t_map *map)
+static t_vector *get_enemy_positions(char **map, size_t	num_enemies)
 {
-	t_vector	pos;
+	t_vector	*positions;
+	size_t		i;
+
+	positions = malloc(num_enemies * sizeof(t_vector));
+	if (!positions)
+		return (NULL);
+	i = 0;
+	while (i < num_enemies)
+	{
+		if (i == 0)
+			positions[i] = get_next_enemy(map, (t_vector) {0, 0});
+		else
+			positions[i] = get_next_enemy(map, positions[i - 1]);
+		i++;
+	}
+	return (positions);
+}
+
+int	move_enemies(double delta_time, t_entity *enemy, t_map *map)
+{
+	t_vector	*all_pos;
 	t_vector	new_pos;
 	size_t		i;
-	char		**new_map;
 	static double  time;
 
-	time += mlx->delta_time;
+	time += delta_time;
 	if (time <= ENEMY_SPEED)
-		return ;
+		return (0);
 	time = 0;
-	new_map = dup_map(map->map_2d, map->height);
-	if (!new_map)
-		; // TODO: protect
+
+	all_pos = get_enemy_positions(map->map_2d, map->num_enemies);
+	if (!all_pos)
+		return (-1);
 	i = 0;
 	while (i < map->num_enemies)
 	{
-		pos = get_enemy_i_pos(map->map_2d, i);
-		new_pos = get_new_pos(&pos, map->map_2d);
-		update_map(pos, new_pos, new_map);
+		new_pos = get_new_pos(all_pos[i], map->map_2d);
+		update_map(all_pos[i], new_pos, map->map_2d);
 		move_enemy_i_sprites(i, enemy, &new_pos);
 		i++;
 	}
-	free_2d_array((void **)map->map_2d); // TODO: double check
-	map->map_2d = new_map;
+	free(all_pos);
+	return (0);
 }
 

@@ -54,9 +54,11 @@ static void	reset_enemies(t_entity *enemy, t_map *map)
 	t_vector	pos;
 
 	i = 0;
+	pos.x = 0;
+	pos.y = 0;
 	while (i < map->num_enemies)
 	{
-		pos = get_enemy_i_pos(map->map_2d, i);
+		pos = get_next_enemy(map->map_2d, pos);
 		move_enemy_i_sprites(i, enemy, &pos);
 		i++;
 	}
