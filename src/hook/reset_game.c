@@ -1,5 +1,6 @@
 
 #include "../so_long.h"
+#include <stdlib.h>
 
 static void	reset_player(t_entity *player, t_vector pos)
 {
@@ -64,17 +65,20 @@ static void	reset_enemies(t_entity *enemy, t_map *map)
 	}
 }
 
-void	reset_map(t_map *map, t_map *backup)
+int	reset_map(t_map *map, t_map *backup)
 {
 	free(map->map_1d);
 	free_2d_array((void **) map->map_2d);
-	copy_t_map(map, backup);
+	if (copy_t_map(map, backup) == -1)
+		return (-1);
+	return (0);
 }
 
 void	reset_game(t_game *game)
 {
 	mlx_delete_image(game->mlx, game->map.steps_img);
-	reset_map(&game->map, &game->backup_map);
+	if (reset_map(&game->map, &game->backup_map) == -1)
+		end_game(game, EXIT_FAILURE);
 	reset_enemies(&game->entities.enemy, &game->map);
 	reset_items(&game->entities.item);
 	reset_player(&game->entities.player, game->map.player_pos);

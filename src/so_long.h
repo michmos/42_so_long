@@ -135,7 +135,7 @@ void	init_map(t_map *map, const char *map_path);
 int	error_check(t_map *map, t_map *backup_map);
 
 // error_check2.c ------------------------------------------------------------//
-bool	has_valid_path(t_map *map, t_map *backup_map);
+bool	has_valid_path(t_map *map);
 
 // load_images.c -------------------------------------------------------------//
 int load_images(mlx_t *mlx, t_img_list *imgs);
@@ -189,7 +189,7 @@ void	display_message(t_game *game, int color, char *message);
 
 // reset_game.c --------------------------------------------------------------//
 void	reset_game(t_game *game);
-void	reset_map(t_map *map, t_map *backup);
+int	reset_map(t_map *map, t_map *backup);
 
 // step_count.c --------------------------------------------------------------//
 int	print_step_count(mlx_t *mlx, mlx_image_t **step_count, int steps);

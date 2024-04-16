@@ -1,6 +1,5 @@
 
 #include "../so_long.h"
-#include <stddef.h>
 
 static bool	is_valid_space(char c)
 {
@@ -25,12 +24,11 @@ static void	cross_reachable_space(char **map, size_t y, size_t x)
 	return ;
 }
 
-bool	has_valid_path(t_map *map, t_map *backup_map)
+bool	has_valid_path(t_map *map)
 {
 	bool	is_valid;
 
 	cross_reachable_space(map->map_2d, map->player_pos.y, map->player_pos.x);
 	is_valid = !has_entity(map->map_2d, EXIT) && !has_entity(map->map_2d, ITEM);
-	reset_map(map, backup_map);
 	return (is_valid);
 }

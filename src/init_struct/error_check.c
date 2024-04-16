@@ -1,6 +1,5 @@
 
 #include "../so_long.h"
-#include <stddef.h>
 
 
 static bool	is_closed(char **map, size_t height, size_t width)
@@ -146,9 +145,14 @@ int	error_check(t_map *map, t_map *backup_map)
 		print_err("Map must be rectangular");
 	else if (!is_closed(map->map_2d, map->height, map->width))
 		print_err("Map must be closed");
-	else if (!has_valid_path(map, backup_map))
+	else if (!has_valid_path(map))
 		print_err("Map: There must be a valid path from start to exit");
 	else
-		return (0);
+	{
+		if (reset_map(map, backup_map) == -1)
+			return (-1);
+		else
+			return (0);
+	}
 	return (1);
 }
