@@ -7,7 +7,7 @@ static char	*read_file(int fd)
 	char	*content;
 	char	*buffer;
 	char	*temp;
-	size_t	bytes_read;
+	int		bytes_read;
 
 	content = NULL;
 	buffer = ft_calloc(BUFFER_SIZE, sizeof(char));
