@@ -27,6 +27,7 @@ The task was to create a 2D game with a player, items and an exit. The program t
 * there is only one player and one exit and at least one item
 * there must be a valid path from start to end
 * ...
+
 The bonus part required animations, randomly moving enemies and a step count.
 ### Learnings
 This project introduced two new things:
