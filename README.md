@@ -5,7 +5,7 @@
 ### Cloning
 Run the following command to clone the repo and build the executable:
 ```
-git clone git@github.com:michmos/42_so_long.git && cd 42_so_long && make
+git clone https://github.com/michmos/42_so_long.git && cd 42_so_long && make
 ```
 ### Running
 Run the executable with the map-path as an argument. You can chose any map from the maps directory or create your own map.
