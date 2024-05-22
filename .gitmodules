@@ -1,6 +1,6 @@
 [submodule "external_libs/MLX42"]
 	path = external_libs/MLX42
-	url = git@github.com:codam-coding-college/MLX42.git
+	url = https://github.com/codam-coding-college/MLX42.git
 [submodule "external_libs/42_libs"]
 	path = external_libs/42_libs
-	url = git@github.com:michmos/42_libs.git
+	url = https://github.com/michmos/42_libs.git
